@@ -1,0 +1,13 @@
+<h1>All Sightings</h1>
+
+<ul>
+<% @sightings.each do |s| %>
+	<li>
+	<%= s.location %>
+	<%= s.created_at %>
+	</li>
+<% end %>
+</ul>
+
+<%= link_to "New Sightings", new_sighting_path %>
+
