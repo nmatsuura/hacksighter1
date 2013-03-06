@@ -1,6 +1,8 @@
 Hacksighter1::Application.routes.draw do
   
   resources :sightings
+
+  root to: 'sightings#index'
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
