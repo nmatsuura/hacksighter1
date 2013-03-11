@@ -1,0 +1,14 @@
+<%= form_for(@sighting) do |f| %>
+
+	<div>
+		<%= f.label :location %><br />
+		<%= f.text_field :location %><br />
+
+		<%= f.label :created_at %><br />
+		<%= f.text_field :created_at %><br />
+
+	</div>
+
+	<%= f.submit 'Submit' %>
+
+<% end %>

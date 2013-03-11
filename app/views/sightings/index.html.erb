@@ -5,6 +5,9 @@
 	<li>
 	<%= s.location %>
 	<%= s.created_at %>
+	<%= link_to 'Show', s %>
+	<%= link_to 'Edit', edit_sighting_path(s) %>
+	<%= link_to 'Destroy', s, method: :delete, data: { confirm: 'Are you sure?' } %>
 	</li>
 <% end %>
 </ul>

@@ -19,4 +19,27 @@ class SightingsController < ApplicationController
 		end
 	end
 
+	def edit
+		@sighting = Sighting.find(params[:id])
+	end
+
+	def update
+		@sighting = Sighting.find(params[:id])
+		if @sighting.update_attributes params[:sighting]
+			redirect_to sightings_path
+		else
+			render :edit
+		end
+	end
+
+	def destroy
+		@sighting = Sighting.find(params[:id])
+		@sighting.destroy
+			redirect_to sightings_path
+	end
+
+	def show
+		@sighting = Sighting.find(params[:id])
+	end
+
 end
