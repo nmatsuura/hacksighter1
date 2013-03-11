@@ -1,7 +1,7 @@
 class SightingsController < ApplicationController
 
 	def index
-		@sightings = Sighting.all
+		@sightings = Sighting.includes(:comments).all
 	end
 
 	def new

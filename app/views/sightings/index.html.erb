@@ -8,6 +8,17 @@
 	<%= link_to 'Show', s %>
 	<%= link_to 'Edit', edit_sighting_path(s) %>
 	<%= link_to 'Destroy', s, method: :delete, data: { confirm: 'Are you sure?' } %>
+	
+	<ul>
+		<%= render s.comments %>
+		<li>
+			<%= render 'comments/form',
+					comment: s.comments.build,
+					sighting: s %>
+		</li>
+	</ul>
+
+
 	</li>
 <% end %>
 </ul>

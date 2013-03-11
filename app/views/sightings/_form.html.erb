@@ -1,5 +1,18 @@
 <%= form_for(@sighting) do |f| %>
 
+	<% if @sighting.error.any? %>
+		<h2 style="color:red">Something went wrong</h2>
+			<ul>
+				<% @sighting.errors.full_messages.each do |msg| %>
+					<li>
+						<%= msg %>
+					</li>
+				<% end %>
+			</ul>
+		</div>
+
+	<% end %>
+
 	<div>
 		<%= f.label :location %><br />
 		<%= f.text_field :location %><br />
