@@ -10,8 +10,7 @@ class SightingsController < ApplicationController
 
 	def create
 		@sighting = Sighting.new(params[:sighting])
-		if 
-			@sighting.valid?
+		if @sighting.valid?
 			@sighting.save
 			redirect_to sightings_path
 		else

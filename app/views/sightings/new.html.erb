@@ -1,14 +1,21 @@
 <h1>New Sighting</h1>
 
-<%= form_for @sighting do |f| %>
+<% if @sighting.errors.any? %>
+		<h2 style="color:red">Something went wrong</h2>
+			<ul>
+				<% @sighting.errors.full_messages.each do |msg| %>
+					<li>
+						<%= msg %>
+					</li>
+				<% end %>
+			</ul>
+		</div>
 
-	<div>
-		<%= f.label :location %>
-		<%= f.text_field :location %>
-	</div>
+	<% end %>
 
-	<%= f.submit %>
 
-<% end %>
+<%= render 'form' %>
+
+
 
 <%= link_to 'Back', sightings_path %>
