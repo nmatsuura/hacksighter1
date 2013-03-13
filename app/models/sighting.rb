@@ -1,8 +1,10 @@
 class Sighting < ActiveRecord::Base
   attr_accessible :location
 
-  validates :location, presence: true
+  	belongs_to :user
+  	has_many :comments
 
-  has_many :comments
+	validates :location, presence: true
+	validates :user, presence: true
 
 end
