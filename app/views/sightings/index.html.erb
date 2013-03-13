@@ -1,20 +1,21 @@
 <h1>All Sightings</h1>
 
 <ul>
-<% @sightings.each do |s| %>
+<% @sightings.each do |sight| %>
 	<li>
-	<%= s.location %>
-	<%= s.created_at %>
-	<%= link_to 'Show', s %>
-	<%= link_to 'Edit', edit_sighting_path(s) %>
-	<%= link_to 'Destroy', s, method: :delete, data: { confirm: 'Are you sure?' } %>
+	Posted by: <%= sight.user.name %><br />
+	<%= sight.location %>
+	<%= sight.created_at %>
+	<%= link_to 'Show', sight %>
+	<%= link_to 'Edit', edit_sighting_path(sight) %>
+	<%= link_to 'Destroy', sight, method: :delete, data: { confirm: 'Are you sure?' } %>
 	
 	<ul>
-		<%= render s.comments %>
+		<%= render sight.comments %>
 		<li>
 			<%= render 'comments/form',
-					comment: s.comments.build,
-					sighting: s %>
+					comment: sight.comments.build,
+					sighting: sight %>
 		</li>
 	</ul>
 
