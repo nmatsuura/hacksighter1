@@ -2,6 +2,12 @@ class SightingsController < ApplicationController
 
 	def index
 		@sightings = Sighting.includes(:comments).all
+		# if params[:user_id]
+		# 	@sightings = Sighting.where(user_id: params[:user_id])
+		# else
+		# 	@sightings = Sighting
+		# end
+		# @sightings = @sightings.includes(:comments)
 	end
 
 	def new

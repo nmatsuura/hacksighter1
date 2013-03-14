@@ -4,14 +4,11 @@
 		<h2 style="color:red">Something went wrong</h2>
 			<ul>
 				<% @sighting.errors.full_messages.each do |msg| %>
-					<li>
-						<%= msg %>
-					</li>
+					<li><%= msg %></li>
 				<% end %>
 			</ul>
 		</div>
-
-	<% end %>
+<% end %>
 
 
 <%= render 'form' %>
