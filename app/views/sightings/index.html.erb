@@ -3,7 +3,7 @@
 <ul>
 <% @sightings.each do |sight| %>
 	<li>
-	Posted by: <%= sight.user.name %><br />
+	Posted by: <%= sight.user.email %><br />
 	<%= sight.location %>
 	<%= sight.created_at %>
 	<%= link_to 'Show', sight %>

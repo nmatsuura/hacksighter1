@@ -1,5 +1,7 @@
 Hacksighter1::Application.routes.draw do
   
+  devise_for :users
+
   resources :sightings do
     resources :comments
   end

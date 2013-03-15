@@ -1,5 +1,7 @@
 class SightingsController < ApplicationController
 
+	before_filter :authenticate_user!, except: [:index]
+
 	def index
 		@sightings = Sighting.includes(:comments).all
 		# if params[:user_id]
