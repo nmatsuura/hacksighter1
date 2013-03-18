@@ -21,15 +21,12 @@
 		</li>
 	</ul>
 
-<p>
-<%= image_tag "http://maps.google.com/maps/api/staticmap?size=450x300&sensor=false&zoom=16&markers=#{sight.latitude}%2C#{sight.longitude}" %>
-</p>
-
-
 	</li>
 <% end %>
 </ul>
 
+<%#= gmaps4rails(@json) %>
+<%= gmaps("markers" => {"data" => @json}) %>
 
 <%= link_to "New Sightings", new_sighting_path %>
 

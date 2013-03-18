@@ -10,7 +10,7 @@ class SightingsController < ApplicationController
 		# 	@sightings = Sighting
 		# end
 		# @sightings = @sightings.includes(:comments)
-		# @json = Sighting.all.to_gmaps4rails
+		@json = Sighting.all.to_gmaps4rails
 
 	end
 
