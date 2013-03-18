@@ -10,6 +10,8 @@ class SightingsController < ApplicationController
 		# 	@sightings = Sighting
 		# end
 		# @sightings = @sightings.includes(:comments)
+		# @json = Sighting.all.to_gmaps4rails
+
 	end
 
 	def new
@@ -48,5 +50,6 @@ class SightingsController < ApplicationController
 	def show
 		@sighting = Sighting.find(params[:id])
 	end
+
 
 end

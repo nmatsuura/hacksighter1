@@ -27,4 +27,7 @@
 		<%= @sighting.user.email %>
 </p>
 
+<p>
+<%= image_tag "http://maps.google.com/maps/api/staticmap?size=450x300&sensor=false&zoom=16&markers=#{@sighting.latitude}%2C#{@sighting.longitude}" %>
+</p>
 <%= link_to 'Back', sightings_path %>
