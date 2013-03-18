@@ -1,6 +1,20 @@
 <p>
 	<b> Sighting </b>
+</p>
+
+<p>
+	<b> Location </b>
 		<%= @sighting.location %>
+</p>
+
+<p>
+	<b> Longitude </b>
+		<%= @sighting.longitude %>
+</p>
+
+<p>
+	<b> Latitude </b>
+		<%= @sighting.latitude %>
 </p>
 
 <p>
@@ -8,9 +22,9 @@
 		<%= @sighting.created_at %>
 </p>
 
-<!-- <p>
+<p>
 	<b> User </b>
-		<%= sight.user.name %>
-</p> -->
+		<%= @sighting.user.email %>
+</p>
 
 <%= link_to 'Back', sightings_path %>

@@ -5,6 +5,8 @@
 	<li>
 	Posted by: <%= sight.user.email %><br />
 	<%= sight.location %>
+	<%= sight.longitude %>
+	<%= sight.latitude %>
 	<%= sight.created_at %>
 	<%= link_to 'Show', sight %>
 	<%= link_to 'Edit', edit_sighting_path(sight) %>
