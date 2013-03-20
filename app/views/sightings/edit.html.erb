@@ -7,6 +7,10 @@
 		Created at: <%= @sighting.created_at %><br />
 		</div>
 
+<p>
+<%= gmaps("markers" => {"data" => @json}) %>
+</p>
+
 
 <%= link_to 'Show', @sighting %>
 <%= link_to 'Back', sightings_path %>

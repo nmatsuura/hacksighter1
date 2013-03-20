@@ -19,7 +19,8 @@ class SightingsController < ApplicationController
 	end
 
 	def create
-		@sighting = Sighting.new(params[:sighting])
+		@sighting = current_user.sightings.build(params[:sighting])
+		#@sighting = Sighting.new(params[:sighting])
 		if @sighting.valid?
 			@sighting.save
 			redirect_to sightings_path
@@ -30,6 +31,7 @@ class SightingsController < ApplicationController
 
 	def edit
 		@sighting = Sighting.find(params[:id])
+		@json = Sighting.find(params[:id]).to_gmaps4rails
 	end
 
 	def update
@@ -49,6 +51,7 @@ class SightingsController < ApplicationController
 
 	def show
 		@sighting = Sighting.find(params[:id])
+		@json = Sighting.find(params[:id]).to_gmaps4rails
 	end
 
 
