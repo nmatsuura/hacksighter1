@@ -1,9 +1,10 @@
-<h1>All Sightings</h1>
+<h1>All Sightings (<%= @sightings.count %>)</h1>
 
-<ul>
+<!--<ul>
 <% @sightings.each do |sight| %>
 	<li>
 	Posted by: <%= sight.user.email %><br />
+	<%= sight.topic_id %>
 	<%= sight.location %>
 	<%= sight.longitude %>
 	<%= sight.latitude %>
@@ -23,7 +24,17 @@
 
 	</li>
 <% end %>
+</ul>-->
+
+<h3>Topics</h3>
+<ul>
+<% @topics.each do |topic| %>
+	<li>
+	<%= link_to topic.name, "?topic=#{topic.id}" %>
+	</li>
+<% end %>
 </ul>
+
 
 
 <%= gmaps("markers" => {"data" => @json}) %>

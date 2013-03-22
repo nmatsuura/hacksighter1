@@ -3,6 +3,12 @@
 </p>
 
 <p>
+	<b> Topic </b>
+		<%= Topic.find(@sighting.topic_id).name%>
+</p>
+
+
+<p>
 	<b> Location </b>
 		<%= @sighting.location %>
 </p>

@@ -3,15 +3,27 @@ class SightingsController < ApplicationController
 	before_filter :authenticate_user!, except: [:index]
 
 	def index
-		@sightings = Sighting.includes(:comments).all
+		if params[:topic].present?
+			@sightings = Sighting.where(topic_id: params[:topic])
+		else
+			@sightings = Sighting.includes(:comments).all
+		end
+		@topics = Topic.all
+	
+		@json = @sightings.to_gmaps4rails do |sighting, marker|
+	 	 marker.infowindow render_to_string(:partial => "/sightings/infowindow", :locals => { :sighting => sighting})
+	 	 	marker.title "test"
+	    	marker.json({ :sighting => sighting.created_at})
+	    
+	  end
+
+
 		# if params[:user_id]
 		# 	@sightings = Sighting.where(user_id: params[:user_id])
 		# else
 		# 	@sightings = Sighting
 		# end
 		# @sightings = @sightings.includes(:comments)
-		@json = Sighting.all.to_gmaps4rails
-
 	end
 
 	def new
