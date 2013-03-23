@@ -4,7 +4,7 @@ class SightingsController < ApplicationController
 
 	def index
 		if params[:topic].present?
-			@sightings = Sighting.where(topic_id: params[:topic])
+			@sightings = Sighting.includes(:comments).where(topic_id: params[:topic])
 		else
 			@sightings = Sighting.includes(:comments).all
 		end
@@ -12,10 +12,17 @@ class SightingsController < ApplicationController
 	
 		@json = @sightings.to_gmaps4rails do |sighting, marker|
 	 	 marker.infowindow render_to_string(:partial => "/sightings/infowindow", :locals => { :sighting => sighting})
-	 	 	marker.title "test"
-	    	marker.json({ :sighting => sighting.created_at})
-	    
-	  end
+	 	end
+
+# topics = [
+# {id: 1, name: "Rob ford", count: 10},
+# {id: 2, name: "bike acc", count: 4}
+# ]
+
+# count: 4 >>>>> count: Sighting.where(topic_id: topic.id).count
+
+
+# Look for ruby method COLLECT
 
 
 		# if params[:user_id]

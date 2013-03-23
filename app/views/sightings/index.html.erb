@@ -1,10 +1,32 @@
 <h1>All Sightings (<%= @sightings.count %>)</h1>
 
-<!--<ul>
+
+
+<h3>Topics</h3>
+
+
+
+<ul>
+<% @topics.each do |topic| %>
+	<li>
+	<%= link_to topic.name, "?topic=#{topic.id}" %> (Number of sightings: ?)
+	</li>
+<% end %>
+</ul>
+
+<h4>Want to add a new topic?</h4>
+
+<%= gmaps("markers" => {"data" => @json}) %>
+
+<%= link_to "New Sightings", new_sighting_path %>
+
+
+<ul>
 <% @sightings.each do |sight| %>
 	<li>
 	Posted by: <%= sight.user.email %><br />
-	<%= sight.topic_id %>
+	Topic name: <% topic_id = sight.topic_id %>
+				<%= Topic.find(topic_id).name %><br />
 	<%= sight.location %>
 	<%= sight.longitude %>
 	<%= sight.latitude %>
@@ -24,20 +46,4 @@
 
 	</li>
 <% end %>
-</ul>-->
-
-<h3>Topics</h3>
-<ul>
-<% @topics.each do |topic| %>
-	<li>
-	<%= link_to topic.name, "?topic=#{topic.id}" %>
-	</li>
-<% end %>
 </ul>
-
-
-
-<%= gmaps("markers" => {"data" => @json}) %>
-
-<%= link_to "New Sightings", new_sighting_path %>
-

@@ -1,9 +1,14 @@
+<%= Topic.find(@sighting.topic_id).name%>
+
 <%= form_for(@sighting) do |f| %>
 
 	<div>
 		<%= f.label :topic_id %><br />
 		<%= f.text_field :topic_id %><br />	
 	</div>
+
+
+
 
 	<div>
 		<%= f.label :location %><br />
