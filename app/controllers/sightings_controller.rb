@@ -8,10 +8,15 @@ class SightingsController < ApplicationController
 		else
 			@sightings = Sighting.includes(:comments).all
 		end
+		
+		@users = User.all
+	 	
 		@topics = Topic.all
 	
 		@json = @sightings.to_gmaps4rails do |sighting, marker|
 	 	 marker.infowindow render_to_string(:partial => "/sightings/infowindow", :locals => { :sighting => sighting})
+	 	
+
 	 	end
 
 # topics = [

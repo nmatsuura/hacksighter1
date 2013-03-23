@@ -2,13 +2,9 @@
 
 <%= form_for(@sighting) do |f| %>
 
-	<div>
-		<%= f.label :topic_id %><br />
-		<%= f.text_field :topic_id %><br />	
+ 	<div><%= f.label :topic_id %> <br />
+		<%= f.select :topic_id, ['1', '2', '3', '4'] %>
 	</div>
-
-
-
 
 	<div>
 		<%= f.label :location %><br />

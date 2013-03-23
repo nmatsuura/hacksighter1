@@ -2,8 +2,7 @@
 
 
 
-<h3>Topics</h3>
-
+<h3>Topics (<%= @topics.count %>)</h3>
 
 
 <ul>
@@ -15,6 +14,9 @@
 </ul>
 
 <h4>Want to add a new topic?</h4>
+
+<h3>Users (<%= @users.count %>)</h3>
+
 
 <%= gmaps("markers" => {"data" => @json}) %>
 

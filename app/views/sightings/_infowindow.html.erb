@@ -5,3 +5,4 @@
 <%= link_to 'Show', sighting %>
 <%= link_to 'Edit', edit_sighting_path(sighting) %>
 <%= link_to 'Destroy', sighting, method: :delete, data: { confirm: 'Are you sure?' } %>
+<%= render sighting.comments %>
