@@ -5,7 +5,7 @@ class Sighting < ActiveRecord::Base
 
   	belongs_to :user
   	has_many :comments
-  	has_one :topic
+  	belongs_to :topic
 
 	validates :location, presence: true
 	validates :user, presence: true

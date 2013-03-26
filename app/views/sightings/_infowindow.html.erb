@@ -1,8 +1,17 @@
-<h4><% topic_id = sighting.topic_id %>
-				<%= Topic.find(topic_id).name %></h4>
-<h4>sighted by: <%= sighting.user.email %></h4>
-<h4>at <%= sighting.created_at %></h4>
-<%= link_to 'Show', sighting %>
-<%= link_to 'Edit', edit_sighting_path(sighting) %>
-<%= link_to 'Destroy', sighting, method: :delete, data: { confirm: 'Are you sure?' } %>
+<h5><% topic_id = sighting.topic_id %>
+	<%= Topic.find(topic_id).name %> | 
+	at <%= sighting.created_at %></h5>
+<h5>Sighted by: <%= sighting.user.email %></h5>
+
+
+	<% if sighting.user == @current_user %>
+		<%= link_to 'Show', sighting %>
+		<%= link_to 'Edit', edit_sighting_path(sighting) %>
+		<%= link_to 'Destroy', sighting, method: :delete, data: { confirm: 'Are you sure?' } %>
+	<% else %>
+		<%= link_to 'Show', sighting %>
+	<% end %>
+
 <%= render sighting.comments %>
+
+<%= render 'comments/form', comment: sighting.comments.build, sighting: sighting %>

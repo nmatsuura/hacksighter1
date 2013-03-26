@@ -14,6 +14,7 @@ gem 'omniauth-twitter'
 
 gem 'bootstrap-sass'
 
+gem 'pry'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 

@@ -10,6 +10,8 @@ class SightingsController < ApplicationController
 		end
 		
 		@users = User.all
+
+		@current_user = current_user
 	 	
 		@topics = Topic.all
 	

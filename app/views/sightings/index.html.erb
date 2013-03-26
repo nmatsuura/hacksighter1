@@ -1,5 +1,6 @@
 <h1>All Sightings (<%= @sightings.count %>)</h1>
 
+<h3>Current User (<%= @current_user.email %>)</h3>
 
 
 <h3>Topics (<%= @topics.count %>)</h3>
@@ -8,7 +9,7 @@
 <ul>
 <% @topics.each do |topic| %>
 	<li>
-	<%= link_to topic.name, "?topic=#{topic.id}" %> (Number of sightings: ?)
+	<%= link_to topic.name, "?topic=#{topic.id}" %> (Number of sightings: <%= topic.sightings.count %>)
 	</li>
 <% end %>
 </ul>
@@ -38,7 +39,7 @@
 	<%= link_to 'Destroy', sight, method: :delete, data: { confirm: 'Are you sure?' } %>
 	
 	<ul>
-		<%= render sight.comments %>
+		<%#= render sight.comments %>
 		<li>
 			<%= render 'comments/form',
 					comment: sight.comments.build,
