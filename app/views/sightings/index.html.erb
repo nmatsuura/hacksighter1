@@ -1,6 +1,6 @@
 <h1>All Sightings (<%= @sightings.count %>)</h1>
 
-<h3>Current User (<%= @current_user.email %>)</h3>
+<h3>Current User (<%#= @current_user.email %>)</h3>
 
 
 <h3>Topics (<%= @topics.count %>)</h3>
@@ -34,6 +34,7 @@
 	<%= sight.longitude %>
 	<%= sight.latitude %>
 	<%= sight.created_at %>
+	<%= image_tag sight.photo.try(:url) %>
 	<%= link_to 'Show', sight %>
 	<%= link_to 'Edit', edit_sighting_path(sight) %>
 	<%= link_to 'Destroy', sight, method: :delete, data: { confirm: 'Are you sure?' } %>

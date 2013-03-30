@@ -1,20 +1,15 @@
 source 'https://rubygems.org'
 
 gem 'rails', '3.2.11'
-
-gem 'devise'
-
+gem 'devise', '2.2.3'
 gem 'geocoder'
-
 gem 'gmaps4rails'
-
 gem 'omniauth'
-
 gem 'omniauth-twitter'
-
 gem 'bootstrap-sass'
+gem 'pry'  # Henrik installed this just to test some issues with my app!
+gem 'paperclip'
 
-gem 'pry'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 

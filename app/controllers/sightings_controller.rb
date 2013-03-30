@@ -42,6 +42,7 @@ class SightingsController < ApplicationController
 
 	def new
 		@sighting = Sighting.new
+		@photo = @sighting.build_photo
 	end
 
 	def create
