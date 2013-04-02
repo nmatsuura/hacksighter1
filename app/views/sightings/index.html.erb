@@ -1,6 +1,11 @@
-<h1>All Sightings (<%= @sightings.count %>)</h1>
+<h1>Number of Sightings on Map (<%= @sightings.count %>)</h1>
 
-<h3>Current User (<%#= @current_user.email %>)</h3>
+<h3>Current User: 
+	<% if user_signed_in? %>
+		<%= current_user.email %>
+	<% else %>
+		No User signed in
+	<% end %></h3>
 
 
 <h3>Topics (<%= @topics.count %>)</h3>
@@ -19,7 +24,8 @@
 <h3>Users (<%= @users.count %>)</h3>
 
 
-<%= gmaps("markers" => {"data" => @json}) %>
+<%#= gmaps("markers" => {"data" => @json}) %>
+<%= gmaps("markers" => {"data" => @json, :options => { :do_clustering => true, randomize: true}}) %>
 
 <%= link_to "New Sightings", new_sighting_path %>
 
@@ -34,7 +40,7 @@
 	<%= sight.longitude %>
 	<%= sight.latitude %>
 	<%= sight.created_at %>
-	<%= image_tag sight.photo.try(:url) %>
+	<%= image_tag sight.photo.image.url if sight.photo %>
 	<%= link_to 'Show', sight %>
 	<%= link_to 'Edit', edit_sighting_path(sight) %>
 	<%= link_to 'Destroy', sight, method: :delete, data: { confirm: 'Are you sure?' } %>

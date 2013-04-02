@@ -3,7 +3,7 @@
 
 	
 	<div><%= f.label :topic_id %> <br />
-		<%= f.select :topic_id, ['1', '2', '3', '4'] %>
+		<%= f.collection_select :topic_id, Topic.all, :id, :name %>
 	</div>
 
 	<div>
