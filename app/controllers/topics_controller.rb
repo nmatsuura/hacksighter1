@@ -7,16 +7,17 @@ class TopicsController < ApplicationController
 	end
 
 
-	# def create
+	def create
 		
-	# 	@topic = topic
-	# 	@topic.user = current_user
-	# 	if @comment.save
-	# 		redirect_to sightings_path
-	# 	else
-	# 		render 'new'
-	# 	end
-	# end
+		@topic = Topic.new params[:topic]
+		#@topic.user = current_user
+		#@topic = topics.build(params[:topic])
+		if @topic.save
+			redirect_to sightings_path
+		else
+			render 'new'
+		end
+	end
 
 
 end

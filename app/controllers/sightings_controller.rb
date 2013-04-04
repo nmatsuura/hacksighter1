@@ -17,7 +17,6 @@ class SightingsController < ApplicationController
 	
 		@json = @sightings.to_gmaps4rails do |sighting, marker|
 	 	 marker.infowindow render_to_string(:partial => "/sightings/infowindow", :locals => { :sighting => sighting})
-	 	
 
 	 	end
 

@@ -20,6 +20,7 @@
 </ul>
 
 <h4>Want to add a new topic?</h4>
+	<%= link_to 'New Topic', new_topic_path %>
 
 <h3>Users (<%= @users.count %>)</h3>
 
@@ -39,8 +40,8 @@
 	<%= sight.location %>
 	<%= sight.longitude %>
 	<%= sight.latitude %>
-	<%= sight.created_at %>
-	<%= image_tag sight.photo.image.url if sight.photo %>
+	<%= sight.created_at %><br />
+	<%= image_tag sight.photo.image.url if sight.photo %><br />
 	<%= link_to 'Show', sight %>
 	<%= link_to 'Edit', edit_sighting_path(sight) %>
 	<%= link_to 'Destroy', sight, method: :delete, data: { confirm: 'Are you sure?' } %>

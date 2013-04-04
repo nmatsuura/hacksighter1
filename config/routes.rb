@@ -6,6 +6,7 @@ Hacksighter1::Application.routes.draw do
     resources :comments
   end
 
+  resources :topics
 
   root to: 'sightings#index'
   # The priority is based upon order of creation:

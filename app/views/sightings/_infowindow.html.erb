@@ -2,10 +2,6 @@
 	<%= Topic.find(topic_id).name %> | 
 	at <%= sighting.created_at %></h5>
 <h5>Sighted by: <%= sighting.user.email %></h5>
-<li>
-<%= image_tag sighting.photo.image.url if sighting.photo %>
-</li>
-
 
 	<% if sighting.user == @current_user %>
 		<%= link_to 'Show', sighting %>
@@ -18,3 +14,7 @@
 <%= render sighting.comments %>
 
 <%= render 'comments/form', comment: sighting.comments.build, sighting: sighting %>
+
+<%= image_tag sighting.photo.image.url if sighting.photo %>
+
+

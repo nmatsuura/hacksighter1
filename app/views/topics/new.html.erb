@@ -1,0 +1,13 @@
+<h1>New Topic</h1>
+
+
+<%#= render 'form' %>
+
+<%= form_for @topic do |f| %>
+
+<%= f.text_field :name, placeholder: 'Add a topic' %>
+	<%= f.submit %>
+
+<% end %>
+
+<%= link_to 'Back', sightings_path %>

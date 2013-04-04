@@ -29,8 +29,12 @@
 </p>
 
 <p>
-	<b> User </b>
+	<b> Spotted by: </b>
 		<%= @sighting.user.email %>
+</p>
+
+<p>
+<%= image_tag @sighting.photo.image.url if @sighting.photo %>
 </p>
 
 <p>
