@@ -8,10 +8,8 @@ class Photo < ActiveRecord::Base
 	  	styles: {
 	  		thumb: '100x100>',
 	  		small: '150x150>',
-	  		medium: '200x200>'
+	  		medium: '200x200>',
 	  		large: '300x300>'
 	  	}
-
-
 
 end
