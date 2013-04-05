@@ -15,6 +15,6 @@
 
 <%= render 'comments/form', comment: sighting.comments.build, sighting: sighting %>
 
-<%= image_tag sighting.photo.image.url if sighting.photo %>
+<%= image_tag sighting.photo.image.url(:thumb) if sighting.photo %>
 
 
