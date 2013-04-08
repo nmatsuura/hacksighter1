@@ -1,13 +1,13 @@
 <h1>Number of Sightings on Map (<%= @sightings.count %>)</h1>
 
-<h3>Current User: 
+<!-- <h3>Current User: 
 	<% if user_signed_in? %>
 		<%= current_user.email %>
 	<% else %>
 		No User signed in
 	<% end %></h3>
 
-
+ -->
 <h3>Topics (<%= @topics.count %>)</h3>
 
 
@@ -19,17 +19,21 @@
 <% end %>
 </ul>
 
-<h4>Want to add a new topic?</h4>
-	<%= link_to 'New Topic', new_topic_path %>
+
+
+<%= link_to 'Add a new topic', new_topic_path, class: 'btn btn-info'%>
 
 <h3>Users (<%= @users.count %>)</h3>
-
 
 <%#= gmaps("markers" => {"data" => @json}) %>
 <%= gmaps("markers" => {"data" => @json, :options => { :do_clustering => true, randomize: true}}) %>
 
-<%= link_to "New Sightings", new_sighting_path %>
 
+<%= link_to "Report a new sighting", new_sighting_path, class: 'btn btn-danger'%>
+
+
+<br />
+<br />
 
 <ul>
 <% @sightings.each do |sight| %>

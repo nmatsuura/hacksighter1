@@ -1,23 +1,35 @@
+
+<div class="container-fluid">
+  <div class="row-fluid">
+    <div class="span3">
+      <!--Sidebar content-->
+    
+
+
 <p>
 	<b> Topic </b>
 		<%= Topic.find(@sighting.topic_id).name%>
 </p>
 
+<p>
+<%= image_tag @sighting.photo.image.url(:large) if @sighting.photo %>
+</p>
 
 <p>
 	<b> Location </b>
 		<%= @sighting.location %>
 </p>
 
+<!--
 <p>
 	<b> Longitude </b>
 		<%= @sighting.longitude %>
 </p>
-
 <p>
 	<b> Latitude </b>
 		<%= @sighting.latitude %>
 </p>
+-->
 
 <p>
 	<b> Time spotted </b>
@@ -29,12 +41,16 @@
 		<%= @sighting.user.email %>
 </p>
 
-<p>
-<%= image_tag @sighting.photo.image.url(:large) if @sighting.photo %>
-</p>
+    
+
+</div>
+    <div class="span9">    
 
 <p>
 <%= gmaps("markers" => {"data" => @json}) %>
 </p>
+</div>
+  </div>
+</div>
 
 <%= link_to 'Back', sightings_path %>
