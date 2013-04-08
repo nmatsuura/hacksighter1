@@ -5,14 +5,33 @@
   <%= stylesheet_link_tag    "application", :media => "all" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
+  <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.min.css" rel="stylesheet">
+  <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/js/bootstrap.min.js"></script>
 </head>
 <body>
 
-<% if user_signed_in? %>
-	<%= link_to "Sign Out", destroy_user_session_path, method: :delete %>
-<% else %>
-	<%= link_to "Sign In", new_user_session_path %>
-<% end %>
+
+<div class="navbar">
+  <div class="navbar-inner">
+    <a class="brand" href="#">HackSighter</a>
+    <% if user_signed_in? %>
+	    <ul class="nav">
+	      <li class="active">
+	      	<%= link_to "Sign Out", destroy_user_session_path, method: :delete %></li>
+	    </ul>
+	<% else %>
+		<ul class="nav">
+		<li class="active">
+		<%= link_to "Sign In", new_user_session_path %></li>
+		</ul>
+	<% end %>
+
+  </div>
+</div>
+
+<div class='container'>
+
+
 
 <%= yield %>
 
