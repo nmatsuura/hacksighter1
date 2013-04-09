@@ -18,15 +18,24 @@
   <div class="navbar-inner">
     <a class="brand" href="#">HackSIGHTER</a>
     <% if user_signed_in? %>
-	    <ul class="nav">
+
+    	<ul class="nav">
+	      <li class="active">
+	      	<%= link_to "Report a sighting", new_sighting_path %></li>
+			
+			<li class="active">
+	      	<%= link_to "Add a new topic", new_topic_path %></li>
+
 	      <li class="active">
 	      	<%= link_to "Sign Out", destroy_user_session_path, method: :delete %></li>
 	    </ul>
+
 	<% else %>
 		<ul class="nav">
 		<li class="active">
 		<%= link_to "Sign In", new_user_session_path %></li>
 		</ul>
+	
 	<% end %>
 
 	

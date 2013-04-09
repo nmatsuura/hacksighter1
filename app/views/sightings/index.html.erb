@@ -21,7 +21,7 @@
 
 
 
-<%= link_to 'Add a new topic', new_topic_path, class: 'btn btn-info'%>
+<%#= link_to 'Add a new topic', new_topic_path, class: 'btn btn-info'%>
 
 <h3>Users (<%= @users.count %>)</h3>
 
@@ -29,7 +29,7 @@
 <%= gmaps("markers" => {"data" => @json, :options => { :do_clustering => true, randomize: true}}) %>
 
 
-<%= link_to "Report a new sighting", new_sighting_path, class: 'btn btn-danger'%>
+<%#= link_to "Report a new sighting", new_sighting_path, class: 'btn btn-danger'%>
 
 
 <br />
