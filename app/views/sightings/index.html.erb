@@ -1,3 +1,5 @@
+
+
 <div class="navbar">
   <div class="navbar-inner">
 
@@ -15,8 +17,8 @@
 
 
 
-<h1>Number of Sightings on Map (<%= @sightings.count %>)</h1>
-
+<!-- <h1>Number of Sightings on Map (<%= @sightings.count %>)</h1>
+ -->
 <!-- <h3>Current User: 
 	<% if user_signed_in? %>
 		<%= current_user.email %>
@@ -25,9 +27,10 @@
 	<% end %></h3>
 
  -->
-<h3>Topics (<%= @topics.count %>)</h3>
 
 
+<li>
+	<%= link_to 'Show all sightings', sightings_path%> (<%= @sightings.count %>)</li>
 <ul>
 <% @topics.each do |topic| %>
 	<li>
@@ -40,12 +43,14 @@
 
 <%#= link_to 'Add a new topic', new_topic_path, class: 'btn btn-info'%>
 
-<h3>Users (<%= @users.count %>)</h3>
+
 
 <%#= gmaps("markers" => {"data" => @json}) %>
 <%= gmaps("markers" => {"data" => @json, :options => { :do_clustering => true, randomize: true}}) %>
 
 
+<h3>Topics (<%= @topics.count %>)</h3>
+<h3>Users (<%= @users.count %>)</h3>
 <%#= link_to "Report a new sighting", new_sighting_path, class: 'btn btn-danger'%>
 
 
@@ -61,7 +66,7 @@
 	<%= sight.location %>
 	<%= sight.longitude %>
 	<%= sight.latitude %>
-	<%= sight.created_at %><br />
+	<%= sight.created_at.to_formatted_s(:long) %><br />
 	<%= image_tag sight.photo.image.url if sight.photo %><br />
 	<%= link_to 'Show', sight %>
 	<%= link_to 'Edit', edit_sighting_path(sight) %>

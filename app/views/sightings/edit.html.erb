@@ -1,19 +1,51 @@
+
+<div class="navbar">
+  <div class="navbar-inner">
+    <a class="brand" href="#">EDIT SIGHTING</a>
+    <ul class="nav">
+      <li class="active"><a href="#">Home</a></li>
+      <li><a href="#">Link</a></li>
+      <li><a href="#">Link</a></li>
+    </ul>
+  </div>
+</div>
+
+
+
 <h1><p>Edit Sighting</p></h1>
 
-<%#= Topic.find(@sighting.topic_id).name%>
+ <div class="container-fluid">
+  <div class="row-fluid">
+    <div class="span3">
+      <!--Sidebar content-->
+   
+	<p>
+	<%= image_tag @sighting.photo.image.url(:large) if @sighting.photo %>
+	</p>
 
 
-<%= render 'form' %>
+	<%#= Topic.find(@sighting.topic_id).name%>
+		<%= render 'form' %>
+
+		<div>
+			Created at: <%= @sighting.created_at.to_formatted_s(:long) %><br />
+		</div>
+
+	</div>
+	 <!--End Sidebar content-->
+
 
 	
-		<div>
-		Created at: <%= @sighting.created_at %><br />
-		</div>
+
+<div class="span9">    
+<!--RHS map content-->
 
 <p>
 <%= gmaps("markers" => {"data" => @json}) %>
 </p>
 
+</div>
+<!--End RHS map content-->
 
 <%= link_to 'Show', @sighting %>
 <%= link_to 'Back', sightings_path %>

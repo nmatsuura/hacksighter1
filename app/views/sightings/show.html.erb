@@ -7,8 +7,7 @@
 
 
 <p>
-	<b> Topic </b>
-		<%= Topic.find(@sighting.topic_id).name%>
+	<b><%= Topic.find(@sighting.topic_id).name.upcase%></b>
 </p>
 
 <p>
@@ -33,7 +32,7 @@
 
 <p>
 	<b> Time spotted </b>
-		<%= @sighting.created_at %>
+		<%= @sighting.created_at.to_formatted_s(:long) %>
 </p>
 
 <p>

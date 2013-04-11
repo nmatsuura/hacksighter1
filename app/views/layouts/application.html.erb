@@ -18,30 +18,30 @@
 <div class="navbar">
   <div class="navbar-inner">
     <a class="brand" href="#">HackSIGHTER</a>
-    <% if user_signed_in? %>
-    	<ul class = "nav">
-	      	<li class="active">
-	      	<%= link_to "Sign Out", destroy_user_session_path, method: :delete %></li>
-	    </ul>
-	      	<div class='pull-right'>
-	      		<p class = 'navbar-text'>
-	      		<%= current_user.email %></p>
-	      	</div>
+	    <% if user_signed_in? %>
+	    	<ul class = "nav">
+		      	<li class="active">
+		      	<%= link_to "Sign Out", destroy_user_session_path, method: :delete %></li>
+		    </ul>
+		      	<div class='pull-right'>
+		      		<p class = 'navbar-text'>
+		      		<%= current_user.email %></p>
+		      	</div>
 
-	<% else %>
-		<ul class="nav">
-			<li class="active">
-			<%= link_to "Sign In", new_user_session_path %></li></ul>
-			<div class="pull-right">
-				<p class= 'navbar-text'>
-	      			Not signed in
-	      		</p>
-	      	</div>
-	
-	<% end %>
-
+		<% else %>
+			<ul class="nav">
+				<li class="active">
+				<%= link_to "Sign In", new_user_session_path %></li></ul>
+				<div class="pull-right">
+					<p class= 'navbar-text'>
+		      			Not signed in
+		      		</p>
+		      	</div>
+		
+		<% end %>
   </div>
 </div>
+<!-- End of Added Navbar -->
 
 <div class='container'>
 

@@ -1,7 +1,7 @@
-<h5><% topic_id = sighting.topic_id %>
-	<%= Topic.find(topic_id).name %> | 
-	at <%= sighting.created_at %></h5>
-<h5>Sighted by: <%= sighting.user.email %></h5>
+<b><% topic_id = sighting.topic_id %>
+	<%= Topic.find(topic_id).name.upcase %></b></br>
+<b>Time: </b><%= sighting.created_at.to_formatted_s(:long) %></br>
+<b>Spotter: </b><%= sighting.user.email %></br>
 
 	<% if sighting.user == @current_user %>
 		<%= link_to 'Show', sighting %>
