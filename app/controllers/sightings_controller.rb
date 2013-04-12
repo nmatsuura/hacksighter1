@@ -18,7 +18,8 @@ class SightingsController < ApplicationController
 		@json = @sightings.to_gmaps4rails do |sighting, marker|
 	 	 marker.infowindow render_to_string(:partial => "/sightings/infowindow", :locals => { :sighting => sighting})
 
-	 	end
+	 	 marker.json({:when => sighting.created_at.strftime("%b %d, %Y")})
+	 end
 
 # topics = [
 # {id: 1, name: "Rob ford", count: 10},
@@ -41,7 +42,7 @@ class SightingsController < ApplicationController
 
 	def new
 		@sighting = Sighting.new
-		@photo = @sighting.build_photo
+		@photos = 3.times.map{@sighting.photos.build}
 	end
 
 	def create

@@ -29,8 +29,8 @@
  -->
 
 
-<li>
-	<%= link_to 'Show all sightings', sightings_path%> (<%= @sightings.count %>)</li>
+<ul><li>
+	<%= link_to 'Show all sightings', sightings_path%> (<%= @sightings.count %>)</li></ul>
 <ul>
 <% @topics.each do |topic| %>
 	<li>
@@ -47,6 +47,45 @@
 
 <%#= gmaps("markers" => {"data" => @json}) %>
 <%= gmaps("markers" => {"data" => @json, :options => { :do_clustering => true, randomize: true}}) %>
+
+<br />
+<div id="days-slider" style="width: 200px"></div>
+<input type="text" id="days-box" style="width: 100 px" />
+<br />
+
+</ul>
+<script type="text/javascript">
+  now = new Date();
+  $(document).ready(function() {
+    Gmaps.map.callback = function() {
+      var daysRange = {
+      min: 0,
+      max: 100,
+      };
+      $( "#days-box" ).val( (daysRange.min)+ " - " + (daysRange.max))
+      $("#days-slider").slider({
+        range: true,
+        min: daysRange.min,
+        max: daysRange.max,
+        values: [ daysRange.min, daysRange.max ],
+
+        slide: function(event, ui) {
+          $( "#days-box" ).val( (ui.values[ 0 ])+ " - " + (ui.values[ 1 ]) )
+      
+          _.each(Gmaps.map.markers, function(marker) {
+            var when = new Date(marker.when)
+            var days = (now.getTime()-when.getTime())/86400000;
+            if (days < ui.values[0] || days > ui.values[1]) Gmaps.map.hideMarker(marker)
+            if (days >= ui.values[0] && days <= ui.values[1]) Gmaps.map.showMarker(marker)
+            //console.log(days)
+            //console.log(marker)
+          })
+        }
+      });
+    }
+  });
+</script>
+
 
 
 <h3>Topics (<%= @topics.count %>)</h3>
@@ -67,7 +106,9 @@
 	<%= sight.longitude %>
 	<%= sight.latitude %>
 	<%= sight.created_at.to_formatted_s(:long) %><br />
-	<%= image_tag sight.photo.image.url if sight.photo %><br />
+
+	<%= image_tag sight.photos.first.image.url if sight.photos.first %><br />
+	
 	<%= link_to 'Show', sight %>
 	<%= link_to 'Edit', edit_sighting_path(sight) %>
 	<%= link_to 'Destroy', sight, method: :delete, data: { confirm: 'Are you sure?' } %>

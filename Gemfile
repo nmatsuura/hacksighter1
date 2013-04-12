@@ -10,6 +10,7 @@ gem 'omniauth-twitter'
 gem 'bootstrap-sass'
 gem 'pry'  # Enrik installed this just to test some issues with my app!
 gem 'paperclip'
+gem 'jquery-ui-rails'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'

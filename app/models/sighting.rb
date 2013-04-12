@@ -1,10 +1,10 @@
 class Sighting < ActiveRecord::Base
-  attr_accessible :location, :longitude, :latitude, :topic_id, :photo_attributes
+  attr_accessible :location, :longitude, :latitude, :topic_id, :photos_attributes
   geocoded_by :location
   after_validation :geocode, :if => :location_changed?
 	
-	has_one :photo
-  	accepts_nested_attributes_for :photo
+	has_many :photos
+  	accepts_nested_attributes_for :photos
 
   	belongs_to :user
   	has_many :comments

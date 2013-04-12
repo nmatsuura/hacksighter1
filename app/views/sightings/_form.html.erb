@@ -6,13 +6,15 @@
 		<%= f.collection_select :topic_id, Topic.all, :id, :name %>
 	</div>
 
+	<button class="btn" type="button"><%= link_to "Add a new topic?", new_topic_path %></button>
+
 	<div>
 		<%= f.label :location %><br />
 		<%= f.text_field :location %><br />	
 	</div>
 
 
-	<%= f.fields_for :photo, @photo do |builder| %>
+	<%= f.fields_for :photos, @photos do |builder| %>
 		<div>
 		<%= builder.label :image %><br />
 		<%= builder.file_field :image %><br />	

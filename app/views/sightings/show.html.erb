@@ -11,7 +11,9 @@
 </p>
 
 <p>
-<%= image_tag @sighting.photo.image.url(:large) if @sighting.photo %>
+<% @sighting.photos.each do |photo| %>
+	<%= image_tag photo.image.url(:large) %>
+<% end %>
 </p>
 
 <p>
