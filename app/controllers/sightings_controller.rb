@@ -18,7 +18,7 @@ class SightingsController < ApplicationController
 		@json = @sightings.to_gmaps4rails do |sighting, marker|
 	 	 marker.infowindow render_to_string(:partial => "/sightings/infowindow", :locals => { :sighting => sighting})
 
-	 	 marker.json({:when => sighting.created_at.strftime("%b %d, %Y")})
+	 	 marker.json({:when => sighting.sighted_at.strftime("%b %d, %Y")})
 	 end
 
 # topics = [

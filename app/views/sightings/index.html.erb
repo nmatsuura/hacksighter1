@@ -105,7 +105,7 @@
 	<%= sight.location %>
 	<%= sight.longitude %>
 	<%= sight.latitude %>
-	<%= sight.created_at.to_formatted_s(:long) %><br />
+	<%= sight.sighted_at.to_formatted_s(:long) %><br />
 
 	<%= image_tag sight.photos.first.image.url if sight.photos.first %><br />
 	

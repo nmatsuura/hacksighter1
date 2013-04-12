@@ -12,7 +12,13 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require bootstrap
-//= require_tree .
-//= require jquery-ui
+//= require jquery-ui 
 //= require jquery.ui.slider
+//= require bootstrap
+//= require bootstrap-datepicker
+//= require_tree .
+//= require_self
+
+$(function(){
+	$(".datepicker").datepicker({autoclose: true, format: 'yyyy-mm-dd'});
+});

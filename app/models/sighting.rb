@@ -1,5 +1,5 @@
 class Sighting < ActiveRecord::Base
-  attr_accessible :location, :longitude, :latitude, :topic_id, :photos_attributes
+  attr_accessible :location, :longitude, :latitude, :topic_id, :photos_attributes, :sighted_at
   geocoded_by :location
   after_validation :geocode, :if => :location_changed?
 	
@@ -18,6 +18,14 @@ class Sighting < ActiveRecord::Base
 	
 	def gmaps4rails_address
 	 	"#{longitude}, #{latitude}" #describe how to retrieve the address from your model, if you use directly a db column, you can dry your code, see wiki "#{self.street}, #{self.city}, #{self.country}" 
+	end
+
+	# def sighted_at=(date)
+	# 	self[:sighted_at] = Time.zone.parse(date)
+	# end
+
+	def sighted_at
+		self[:sighted_at] || self.created_at
 	end
 
 end

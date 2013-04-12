@@ -13,6 +13,10 @@
 		<%= f.text_field :location %><br />	
 	</div>
 
+	<div>
+		<%= f.label :time %><br />
+		<%= f.text_field :sighted_at, class: "datepicker" %><br />	
+	</div>
 
 	<%= f.fields_for :photos, @photos do |builder| %>
 		<div>

@@ -1,6 +1,6 @@
 <b><% topic_id = sighting.topic_id %>
 	<%= Topic.find(topic_id).name.upcase %></b></br>
-<b>Time: </b><%= sighting.created_at.to_formatted_s(:long) %></br>
+<b>Time: </b><%= sighting.sighted_at.to_formatted_s(:long) %></br>
 <b>Spotter: </b><%= sighting.user.email %></br>
 
 	<% if sighting.user == @current_user %>
