@@ -1,5 +1,5 @@
 class Sighting < ActiveRecord::Base
-  attr_accessible :location, :longitude, :latitude, :topic_id, :photos_attributes, :sighted_at
+  attr_accessible :location, :longitude, :latitude, :topic_id, :photos_attributes, :sighted_at, :sighted_date, :sighted_time
   geocoded_by :location
   after_validation :geocode, :if => :location_changed?
 	
@@ -23,6 +23,16 @@ class Sighting < ActiveRecord::Base
 	# def sighted_at=(date)
 	# 	self[:sighted_at] = Time.zone.parse(date)
 	# end
+
+	attr_accessor :sighted_date, :sighted_time
+
+	before_validation :set_sighted_at
+
+	def set_sighted_at
+		if sighted_date.present?
+			self[:sighted_at] = Time.zone.parse("#{sighted_date} #{sighted_time}")
+		end
+	end
 
 	def sighted_at
 		self[:sighted_at] || self.created_at

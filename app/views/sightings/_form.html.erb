@@ -10,12 +10,12 @@
 
 	<div>
 		<%= f.label :location %><br />
-		<%= f.text_field :location %><br />	
+		<%= f.text_field :location, placeholder: 'eg: 12 Kingsway W, Toronto' %><br />	
 	</div>
 
 	<div>
 		<%= f.label :time %><br />
-		<%= f.text_field :sighted_at, class: "datepicker" %><br />	
+		<%= f.text_field :sighted_date, class: "datepicker", placeholder: '2012-01-04' %><%= f.text_field :sighted_time, class: "timepicker", placeholder: '12 pm' %><br />	
 	</div>
 
 	<%= f.fields_for :photos, @photos do |builder| %>
