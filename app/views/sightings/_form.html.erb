@@ -1,32 +1,43 @@
+<%= form_for @sighting, html: {multipart: true, class: "form-horizontal"} do |f| %>
 
-<%= form_for @sighting, html: {multipart: true} do |f| %>
-
-
-	<div><%= f.label :topic_id %> <br />
-		<%= f.collection_select :topic_id, Topic.all, :id, :name %>
+	<div class="control-group">
+		<%= f.label :topic_id, class: "control-label" %>
+		<div class="controls">
+			<%= f.collection_select :topic_id, Topic.all, :id, :name %>
+		</div>
 	</div>
 
-	<button class="btn" type="button"><%= link_to "Add a new topic?", new_topic_path %></button>
-
-	<div>
-		<%= f.label :location %><br />
-		<%= f.text_field :location, placeholder: 'eg: 12 Kingsway W, Toronto' %><br />	
+	<div class="control-group">
+		<%= f.label :location, class: 'control-label' %>
+		<div class="controls">
+			<%= f.text_field :location, placeholder: 'e.g.: 12 Kingsway W, Toronto' %>
+		</div>	
 	</div>
 
-	<div>
-		<%= f.label :time %><br />
-		<%= f.text_field :sighted_date, class: "datepicker", placeholder: '2012-01-04' %><%= f.text_field :sighted_time, class: "timepicker", placeholder: '12 pm' %><br />	
+	<div class="control-group">
+		<%= f.label :time, class: "control-label" %>
+		<div class="controls">
+		<%= f.text_field :sighted_date, class: "datepicker", placeholder: 'e.g.: 2012-01-04' %><%= f.text_field :sighted_time, class: "timepicker", placeholder: 'e.g.: 12 pm' %>
+		</div>	
 	</div>
 
-	<%= f.fields_for :photos, @photos do |builder| %>
-		<div>
-		<%= builder.label :image %><br />
-		<%= builder.file_field :image %><br />	
+	<div class="control-group">
+		<%= f.label :photos, class: "control-label" %>
+		<div class="controls">
+
+			<%= f.fields_for :photos, @photos do |builder| %>
+				<div>
+				<%#= builder.label :image %>
+				<%= builder.file_field :image %>
+				</div>
+		<% end %>
+		</div>
+		
+	<div class="control-group">
+		<div class="controls">
+			<%= f.submit 'Submit', class: "btn btn" %>
+		</div>
 	</div>
-	
-<% end %>
 
-	
-	<%= f.submit 'Submit' %>
-
+</form>
 <% end %>

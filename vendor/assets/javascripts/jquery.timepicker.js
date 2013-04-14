@@ -22,7 +22,7 @@ requires jQuery 1.7+
 		minTime: null,
 		maxTime: null,
 		durationTime: null,
-		step: 30,
+		step: 15,
 		showDuration: false,
 		timeFormat: 'g:ia',
 		scrollDefaultNow: false,

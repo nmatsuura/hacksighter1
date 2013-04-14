@@ -1,8 +1,13 @@
-<%= form_for @topic do |f| %>
+<%= form_for @topic, class: "form-horizontal" do |f| %>
 
-<%= f.text_field :name, placeholder: 'Add a topic' %>
-	<%= f.submit %>
+<div class="control-group">
+	<%= f.text_field :name, class: "control-label", placeholder: 'Add a topic' %>
+		
+	<div class="control-group">
+		<%= f.submit%>
+	</div>
+</div>
 
 <% end %>
 
-<%= link_to 'Back', sightings_path %>
+<%= link_to 'Back', sightings_path, class: 'btn btn' %>
