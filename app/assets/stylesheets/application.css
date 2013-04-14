@@ -12,4 +12,5 @@
  *= require_tree .
  *= require jquery.ui.slider
  *= require datepicker
+ *= require jquery.timepicker
  */
