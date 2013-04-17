@@ -38,4 +38,14 @@ class Sighting < ActiveRecord::Base
 		self[:sighted_at] || self.created_at
 	end
 
+
+	# def sighted_date
+	# 	sighted_at.to_date
+	# end
+
+	# def sighted_time
+	#     sighted_at.strftime("%I:%M%p")
+	# end
+
+
 end

@@ -1,7 +1,7 @@
 
 <div class="container-fluid">
   <div class="row-fluid">
-    <div class="span3">
+    <div class="span4">
       <!--Sidebar content-->
     
 
@@ -42,10 +42,9 @@
 		<%= @sighting.user.email %>
 </p>
 
-    
 
 </div>
-    <div class="span9">    
+    <div class="span8">    
 
 <p>
 <%= gmaps("markers" => {"data" => @json}) %>
@@ -54,4 +53,16 @@
   </div>
 </div>
 
-<%= link_to 'Back', sightings_path %>
+<div class="row-fluid">
+    <div class="span12">
+
+<b> COMMENTS </b>
+<%= render @sighting.comments %>
+
+<%= render 'comments/form', comment: @sighting.comments.build, sighting: @sighting %>  
+
+	</div>
+</div>
+
+
+<%= link_to 'Back', sightings_path, class: 'btn btn' %>

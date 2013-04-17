@@ -1,21 +1,20 @@
+<div class="container-fluid">
+  <div class="row-fluid">
 
-
-<div class="navbar">
-  <div class="navbar-inner">
-
-
-    	<ul class="nav">
-	      <li class="active">
-	      	<%= link_to "Report a sighting", new_sighting_path %></li>
-			
-			<li class="active">
-	      	<%= link_to "Add a new topic", new_topic_path %></li>
-	    </ul>
-
-  </div>
-</div>
-
-
+  	<!--Sidebar content-->
+    <div class="span3">
+      
+	      	<p><%= link_to "Report a sighting", new_sighting_path, class: "btn btn" %></p>		
+	      	<p><%= link_to "Add a new topic", new_topic_path, class: "btn btn" %></p>
+	  
+	<%#= search_form_for @q do |f| %>
+		<%#= f.label :topic_cont, "Search Topic" %>
+		<%#= f.text_field :topic_cont %>
+		
+		<%#= f.label :link_cont, "Search Link" %>
+		<%#= f.text_field :link_cont %>
+		<%#= f.submit "Submit" %>
+	<%# end %>
 
 <!-- <h1>Number of Sightings on Map (<%= @sightings.count %>)</h1>
  -->
@@ -25,12 +24,11 @@
 	<% else %>
 		No User signed in
 	<% end %></h3>
-
  -->
 
 
 <ul><li>
-	<%= link_to 'Show all sightings', sightings_path%> (<%= @sightings.count %>)</li></ul>
+	<%= link_to 'Show all sightings', sightings_path%> (<%= @sightings_all.count %>)</li></ul>
 <ul>
 <% @topics.each do |topic| %>
 	<li>
@@ -38,18 +36,21 @@
 	</li>
 <% end %>
 </ul>
-
-
+	
+	</div>
+	<!--End sidebar content-->
 
 <%#= link_to 'Add a new topic', new_topic_path, class: 'btn btn-info'%>
 
+	<!--Main content-->
+	<div class="span9">
 
 
 <%#= gmaps("markers" => {"data" => @json}) %>
 <%= gmaps("markers" => {"data" => @json, :options => { :do_clustering => true, randomize: true}}) %>
 
 <br />
-<div id="days-slider" style="width: 200px"></div>
+<div id="days-slider" style="width: 600px"></div>
 <input type="text" id="days-box" style="width: 100 px" />
 <br />
 
@@ -125,3 +126,8 @@
 	</li>
 <% end %>
 </ul>
+
+</div>
+<!--Main content-->
+</div>
+</div>

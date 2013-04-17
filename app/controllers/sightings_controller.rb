@@ -9,12 +9,18 @@ class SightingsController < ApplicationController
 			@sightings = Sighting.includes(:comments).all
 		end
 		
+		@sightings_all = Sighting.includes(:comments).all
+
 		@users = User.all
 
 		@current_user = current_user
 	 	
 		@topics = Topic.all
-	
+
+		# @q = @sightings.search(params[:q])
+		# @sightings = @q.result
+
+
 		@json = @sightings.to_gmaps4rails do |sighting, marker|
 	 	 marker.infowindow render_to_string(:partial => "/sightings/infowindow", :locals => { :sighting => sighting})
 
@@ -58,6 +64,7 @@ class SightingsController < ApplicationController
 	def edit
 		@sighting = Sighting.find(params[:id])
 		@json = Sighting.find(params[:id]).to_gmaps4rails
+		@photos = 3.times.map{@sighting.photos.build}
 	end
 
 	def update

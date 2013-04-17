@@ -1,7 +1,5 @@
 <h3>Report a New Sighting</h3>
 
-<button class="btn pull-right" type="button"><%= link_to "Add a new topic?", new_topic_path %></button>
-
 <% if @sighting.errors.any? %>
 		<h2 style="color:red">Something went wrong</h2>
 			<ul>
@@ -12,11 +10,6 @@
 		</div>
 <% end %>
 
-
-  
-
 <%= render 'form' %>
-
-
 
 <%= link_to 'Back', sightings_path, class: 'btn btn' %>

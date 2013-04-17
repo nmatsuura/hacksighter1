@@ -1,20 +1,23 @@
-<b><% topic_id = sighting.topic_id %>
-	<%= Topic.find(topic_id).name.upcase %></b></br>
+<b><% topic_id = sighting.topic_id %> 
+	<%= Topic.find(topic_id).name.upcase %></b></br> 
+
+<%= image_tag sighting.photos.first.image.url(:thumb) if sighting.photos.first %>
+
 <b>Time: </b><%= sighting.sighted_at.to_formatted_s(:long) %></br>
 <b>Spotter: </b><%= sighting.user.email %></br>
+<b>Comments: </b><%= sighting.comments.count %></br>
 
 	<% if sighting.user == @current_user %>
-		<%= link_to 'Show', sighting %>
-		<%= link_to 'Edit', edit_sighting_path(sighting) %>
+		<%= link_to 'Show', sighting %> |
+		<%= link_to 'Edit', edit_sighting_path(sighting) %> |
 		<%= link_to 'Destroy', sighting, method: :delete, data: { confirm: 'Are you sure?' } %>
 	<% else %>
 		<%= link_to 'Show', sighting %>
 	<% end %>
 
-<%= render sighting.comments %>
 
-<%= render 'comments/form', comment: sighting.comments.build, sighting: sighting %>
+<%#= render sighting.comments %>
 
-<%= image_tag sighting.photos.first.image.url(:thumb) if sighting.photos.first %>
+<%#= render 'comments/form', comment: sighting.comments.build, sighting: sighting %>
 
 
