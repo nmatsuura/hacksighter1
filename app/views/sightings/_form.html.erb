@@ -1,11 +1,17 @@
-<button class="btn pull-right" type="button"><%= link_to "Add a new topic?", new_topic_path %></button>
-
 <%= form_for @sighting, html: {multipart: true, class: "form-horizontal"} do |f| %>
 	
 	<div class="control-group">
 		<%= f.label :topic_id, class: "control-label" %>
 		<div class="controls">
 			<%= f.collection_select :topic_id, Topic.all, :id, :name %>
+			<button class="btn" type="button"><%= link_to "Add a new topic?", new_topic_path %></button>
+		</div>
+	</div>
+
+	<div class="control-group">
+		<%= f.label :description, class: "control-label" %>
+		<div class="controls">
+			<%= f.text_area :description, placeholder: 'Description' %>
 		</div>
 	</div>
 

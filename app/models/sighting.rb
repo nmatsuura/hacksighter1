@@ -1,5 +1,5 @@
 class Sighting < ActiveRecord::Base
-  attr_accessible :location, :longitude, :latitude, :topic_id, :photos_attributes, :sighted_at, :sighted_date, :sighted_time
+  attr_accessible :location, :longitude, :latitude, :topic_id, :photos_attributes, :sighted_at, :sighted_date, :sighted_time, :description
   geocoded_by :location
   after_validation :geocode, :if => :location_changed?
 	

@@ -1,5 +1,6 @@
 <b><% topic_id = sighting.topic_id %> 
 	<%= Topic.find(topic_id).name.upcase %></b></br> 
+<%= sighting.description %></br>
 
 <%= image_tag sighting.photos.first.image.url(:thumb) if sighting.photos.first %>
 

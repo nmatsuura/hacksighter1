@@ -6,15 +6,17 @@
       
 	      	<p><%= link_to "Report a sighting", new_sighting_path, class: "btn btn" %></p>		
 	      	<p><%= link_to "Add a new topic", new_topic_path, class: "btn btn" %></p>
-	  
+	
+	<!--Searching-->  
 	<%#= search_form_for @q do |f| %>
-		<%#= f.label :topic_cont, "Search Topic" %>
-		<%#= f.text_field :topic_cont %>
+		<%#= f.label :location_cont, "Search Location" %>
+		<%#= f.text_field :location_cont %>
 		
 		<%#= f.label :link_cont, "Search Link" %>
 		<%#= f.text_field :link_cont %>
 		<%#= f.submit "Submit" %>
 	<%# end %>
+	<!--End of searching>
 
 <!-- <h1>Number of Sightings on Map (<%= @sightings.count %>)</h1>
  -->
@@ -27,15 +29,22 @@
  -->
 
 
-<ul><li>
-	<%= link_to 'Show all sightings', sightings_path%> (<%= @sightings_all.count %>)</li></ul>
-<ul>
-<% @topics.each do |topic| %>
-	<li>
-	<%= link_to topic.name, "?topic=#{topic.id}" %> (Number of sightings: <%= topic.sightings.count %>)
-	</li>
-<% end %>
-</ul>
+<select>
+	<option>
+		<%= link_to 'All sightings', sightings_path%> (<%= @sightings_all.count %>)
+	</option>
+	<% @topics.each do |topic| %>
+		<option>
+		<%= link_to topic.name, "?topic=#{topic.id}" %> (<%= topic.sightings.count %> sightings)
+		</option>
+	<% end %>
+</select>
+
+
+	<% @topics.each do |topic| %>
+		<li><%= link_to topic.name, "?topic=#{topic.id}" %> (<%= topic.sightings.count %> sightings)</li>
+	<% end %>
+
 	
 	</div>
 	<!--End sidebar content-->
@@ -103,6 +112,7 @@
 	Posted by: <%= sight.user.email %><br />
 	Topic name: <% topic_id = sight.topic_id %>
 				<%= Topic.find(topic_id).name %><br />
+	Description: <%= sight.description %><br />
 	<%= sight.location %>
 	<%= sight.longitude %>
 	<%= sight.latitude %>

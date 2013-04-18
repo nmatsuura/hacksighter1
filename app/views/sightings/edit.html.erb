@@ -1,20 +1,39 @@
-<h3><p>Edit Sighting</p></h3>
+<div class="container-fluid">
+
+  <div class="row-fluid">
+	<!--Original sighting, info, 1st row-->
+ 	<div class="span3">
+		<b><%= Topic.find(@sighting.topic_id).name.upcase%></b><br />
+		<em><%= @sighting.description %></em><br />
+		<b> Location: </b>
+				<%= @sighting.location %><br />
+		<b> Time spotted: </b>
+				<%= @sighting.sighted_at.to_formatted_s(:long) %><br />
+ 	</div>
+ 	<!--End original sighting, info, 1st row-->
+
+ 	<!--Original sighting, photos, 1st row-->
+ 	<div class="span9">
 
 	<p>
 		<% @sighting.photos.each do |photo| %>
-			<%= image_tag photo.image.url(:large) if photo.image.present? %>
+			<%= image_tag photo.image.url(:thumb) if photo.image.present? %>
 		<% end %>
 	</p>
+	</div>
+	<!--End original sighting, photos, 1st row-->
+  </div>
 
 
+
+<h3><p>Edit Sighting</p></h3>
+
+	
 	<%#= Topic.find(@sighting.topic_id).name%>
 	<%= render 'form' %>
 
-		<div>
-			Sighted at: <%= @sighting.sighted_at.to_formatted_s(:long) %><br />
-		</div>
+		
 
-	</div>
 
 
 

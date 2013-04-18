@@ -1,67 +1,75 @@
-
 <div class="container-fluid">
+
   <div class="row-fluid">
-    <div class="span4">
-      <!--Sidebar content-->
-    
-
-
-<p>
-	<b><%= Topic.find(@sighting.topic_id).name.upcase%></b>
-</p>
-
-<p>
-<% @sighting.photos.each do |photo| %>
-	<%= image_tag photo.image.url(:large) %>
-<% end %>
-</p>
-
-<p>
-	<b> Location </b>
-		<%= @sighting.location %>
-</p>
-
-<!--
-<p>
-	<b> Longitude </b>
-		<%= @sighting.longitude %>
-</p>
-<p>
-	<b> Latitude </b>
-		<%= @sighting.latitude %>
-</p>
--->
-
-<p>
-	<b> Time spotted </b>
-		<%= @sighting.sighted_at.to_formatted_s(:long) %>
-</p>
-
-<p>
-	<b> Spotted by: </b>
-		<%= @sighting.user.email %>
-</p>
-
-
-</div>
-    <div class="span8">    
-
-<p>
-<%= gmaps("markers" => {"data" => @json}) %>
-</p>
-</div>
+ 	<!--Photo content, 1st row-->
+ 	<div class="span12">
+ 		<p>
+		<% @sighting.photos.each do |photo| %>
+			<%= image_tag photo.image.url(:large) %>
+		<% end %>
+		</p>
+ 	</div>
+ 	<!--End photo content, 1st row-->
   </div>
-</div>
+
+
+  <div class="row-fluid">
+    <!--Sidebar content, 2nd row-->
+    <div class="span3">
+		<p>
+			<h3><%= Topic.find(@sighting.topic_id).name.upcase%></h3>
+			<p class = "lead" "text-center"><%= @sighting.description %></p>
+		</p>
+		
+		<p>
+			<b> Location </b>
+				<%= @sighting.location %>
+		</p>
+
+		<!--
+		<p>
+			<b> Longitude </b>
+				<%= @sighting.longitude %>
+		</p>
+		<p>
+			<b> Latitude </b>
+				<%= @sighting.latitude %>
+		</p>
+		-->
+
+		<p>
+			<b> Time spotted </b>
+				<%= @sighting.sighted_at.to_formatted_s(:long) %>
+		</p>
+
+		<p>
+			<b> Spotted by: </b>
+				<%= @sighting.user.email %>
+		</p>
+	</div>
+    <!--End sidebar content, 2nd row-->
+
+    <!--Main content, 2nd row-->
+    <div class="span9">    
+		<p>
+		<%= gmaps("markers" => {"data" => @json}) %>
+		</p>
+	</div>
+	<!-- End main content, 2nd row-->
+
+	  </div>
+	</div>
 
 <div class="row-fluid">
+	 <!--Comments, 3rd row-->
     <div class="span12">
+		<h4> COMMENTS </h4>
+		<%= render @sighting.comments %>
 
-<b> COMMENTS </b>
-<%= render @sighting.comments %>
-
-<%= render 'comments/form', comment: @sighting.comments.build, sighting: @sighting %>  
-
+		<%= render 'comments/form', comment: @sighting.comments.build, sighting: @sighting %>  
 	</div>
+	 <!--End comments, 3rd row-->
+
 </div>
 
 
