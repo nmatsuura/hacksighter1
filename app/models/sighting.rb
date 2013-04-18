@@ -24,10 +24,17 @@ class Sighting < ActiveRecord::Base
 	# 	self[:sighted_at] = Time.zone.parse(date)
 	# end
 
+
+	def self.recent5
+		Sighting.order("sighted_at desc").limit(5)
+	end
+
+
 	attr_accessor :sighted_date, :sighted_time
 
-	before_validation :set_sighted_at
+	before_validation :set_sighted_at #ALMOST ALWAYS DO CALLBACK BEFORE_VALIDATION, NOT BEFORE_SAVE
 
+	# private
 	def set_sighted_at
 		if sighted_date.present?
 			self[:sighted_at] = Time.zone.parse("#{sighted_date} #{sighted_time}")

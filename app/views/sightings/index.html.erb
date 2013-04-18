@@ -20,11 +20,11 @@
 
 <!--Number of Sightings on Map (<%= @sightings.count %>)-->
 <!-- <h3>Current User: 
-	<% if user_signed_in? %>
-		<%= current_user.email %>
-	<% else %>
+	<#% if user_signed_in? %>
+		<%#= current_user.email %>
+	<%# else %>
 		No User signed in
-	<% end %></h3>
+	<%# end %></h3>
  -->
 
 
@@ -44,8 +44,30 @@
 	<% @topics.each do |topic| %>
 		<li><%= link_to topic.name, "?topic=#{topic.id}" %> (<%= topic.sightings.count %> sightings)</li>
 	<% end %>
+
+<div class="dropdown">
+  <a class="dropdown-toggle" data-toggle="dropdown" href="#" class: "btn btn" >Show Sightings</a>
+  <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+    <%= link_to 'All sightings', sightings_path%> (<%= @sightings_all.count %>)
+  </ul>
+  <% @topics.each do |topic| %>
+		<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+		<%= link_to topic.name, "?topic=#{topic.id}" %> (<%= topic.sightings.count %> sightings)
+		</ul>
+	<% end %>
+</div>
+
+
 <!--Can pick which topics to see on map-->
 
+
+<p>
+<b>TOP 5</b>
+	<% @sightings_recent5.each do |recent5| %>
+	<li><% topic_id = recent5.topic_id %>
+					<%= Topic.find(topic_id).name.upcase %></li>
+	<% end %>
+</p>
 	</div>
 	<!--End sidebar content-->
 
@@ -106,7 +128,7 @@
     <div class="span12">
     
 
-<h4>MAP SIGHTINGS</h4>
+<!-- <h4>MAP SIGHTINGS</h4>
 <table class="table table-hover table-condensed">
 	<thead>
 		<tr>
@@ -122,31 +144,83 @@
 		</tr>
 	</thead>
 
-	<% @sightings.each do |sight| %>
+	<%# @sightings.each do |sight| %>
 		<tr>
-			<td><% topic_id = sight.topic_id %>
-				<%= Topic.find(topic_id).name.upcase %></td>
-			<td><%= sight.description %></td>
-			<td><%= sight.location %>
-			<td><%= sight.sighted_at.to_formatted_s(:long) %></td>
-			<td><%= sight.user.email %></td>
-			<td><%= sight.comments.count %></td>
-			<% if sight.user == @current_user %>
-				<td><%= link_to 'Show', sight, class: "btn btn" %></td>
-				<td><%= link_to 'Edit', edit_sighting_path(sight), class: "btn btn"%></td>
-				<td><%= link_to 'Destroy', sight, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn" %></td>
-			<% else %>
-				<td><%= link_to 'Show', sight, class: "btn btn" %></td>
+			<td><%# topic_id = sight.topic_id %>
+				<%#= Topic.find(topic_id).name.upcase %></td>
+			<td><%#= sight.description %></td>
+			<td><%#= sight.location %>
+			<td><%#= sight.sighted_at.to_formatted_s(:long) %></td>
+			<td><%#= sight.user.email %></td>
+			<td><%#= sight.comments.count %></td>
+			<%# if sight.user == @current_user %>
+				<td><%#= link_to 'Show', sight, class: "btn btn" %></td>
+				<td><%#= link_to 'Edit', edit_sighting_path(sight), class: "btn btn"%></td>
+				<td><%#= link_to 'Destroy', sight, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn" %></td>
+			<%# else %>
+				<td><%#= link_to 'Show', sight, class: "btn btn" %></td>
 				<td></td>
 				<td></td>
-			<% end %>
+			<%# end %>
 		</tr>
-	<% end %>
+	<%# end %>
 
 
 </table>
 
+</div> -->
+
+<div class="accordion" id="accordion2">
+  <div class="accordion-group">
+    <div class="accordion-heading">
+      <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">
+        <h4>MAP SIGHTINGS</h4>
+      </a>
+    </div>
+    <div id="collapseOne" class="accordion-body collapse in">
+      <div class="accordion-inner">
+       	<table class="table table-hover table-condensed">
+			<thead>
+				<tr>
+					<th>TOPIC</th>
+					<th>Description</th>
+					<th>Location</th>
+					<th>Time Spotted</th>
+					<th>Spotter</th>			
+					<th>Comments</th>
+					<th></th>
+					<th></th>
+					<th></th>
+				</tr>
+			</thead>
+				<% @sightings.each do |sight| %>
+				<tr>
+					<td><% topic_id = sight.topic_id %>
+						<%= Topic.find(topic_id).name.upcase %></td>
+					<td><%= sight.description %></td>
+					<td><%= sight.location %>
+					<td><%= sight.sighted_at.to_formatted_s(:long) %></td>
+					<td><%= sight.user.email %></td>
+					<td><%= sight.comments.count %></td>
+					<% if sight.user == @current_user %>
+						<td><%= link_to 'Show', sight, class: "btn btn" %></td>
+						<td><%= link_to 'Edit', edit_sighting_path(sight), class: "btn btn"%></td>
+						<td><%= link_to 'Destroy', sight, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn" %></td>
+					<% else %>
+						<td><%= link_to 'Show', sight, class: "btn btn" %></td>
+						<td></td>
+						<td></td>
+					<% end %>
+				</tr>
+			<% end %>
+		</table>
+
+      </div>
+    </div>
+  </div>
+  </div>
 </div>
+
     <!--End of table content-->
 
 <%# @sightings.each do |sight| %>

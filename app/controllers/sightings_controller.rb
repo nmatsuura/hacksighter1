@@ -17,6 +17,8 @@ class SightingsController < ApplicationController
 	 	
 		@topics = Topic.all
 
+		@sightings_recent5 = Sighting.recent5
+
 		# @q = @sightings_all.search(params[:q])
 		# @sightings = @q.result
 
