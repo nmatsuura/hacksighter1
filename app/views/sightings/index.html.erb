@@ -96,7 +96,7 @@
 
 		<p>
 			<b><%= @topics.count %></b> topics tracked<br />
-			<b><%= @users.count %></b> using HackSIGHTER</b>
+			<b><%= @users.count %></b> spotters</b>
 		</p>
 
 	</div>
@@ -104,15 +104,15 @@
 <div class="row-fluid">
 	<!--Table content-->
     <div class="span12">
-  
     
 
-Topic: 
-<table class="table">
+<h4>MAP SIGHTINGS</h4>
+<table class="table table-hover table-condensed">
 	<thead>
 		<tr>
-			<th>Photo</th>
+			<th>TOPIC</th>
 			<th>Description</th>
+			<th>Location</th>
 			<th>Time Spotted</th>
 			<th>Spotter</th>			
 			<th>Comments</th>
@@ -124,15 +124,22 @@ Topic:
 
 	<% @sightings.each do |sight| %>
 		<tr>
-			<td><%= image_tag sight.photos.first.image.url(:thumb) if sight.photos.first %></td>
+			<td><% topic_id = sight.topic_id %>
+				<%= Topic.find(topic_id).name.upcase %></td>
 			<td><%= sight.description %></td>
+			<td><%= sight.location %>
 			<td><%= sight.sighted_at.to_formatted_s(:long) %></td>
 			<td><%= sight.user.email %></td>
 			<td><%= sight.comments.count %></td>
-			<td><%= link_to 'Show', sight %></td>
-			<td><%= link_to 'Edit', edit_sighting_path(sight)%></td>
-			<td><%= link_to 'Destroy', sight, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-
+			<% if sight.user == @current_user %>
+				<td><%= link_to 'Show', sight, class: "btn btn" %></td>
+				<td><%= link_to 'Edit', edit_sighting_path(sight), class: "btn btn"%></td>
+				<td><%= link_to 'Destroy', sight, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn" %></td>
+			<% else %>
+				<td><%= link_to 'Show', sight, class: "btn btn" %></td>
+				<td></td>
+				<td></td>
+			<% end %>
 		</tr>
 	<% end %>
 
@@ -141,41 +148,39 @@ Topic:
 
 </div>
     <!--End of table content-->
-</div>
 
-<% @sightings.each do |sight| %>
-	<ul>
-	Posted by: <%= sight.user.email %><br />
-	Topic name: <% topic_id = sight.topic_id %>
-				<%= Topic.find(topic_id).name %><br />
-	Description: <%= sight.description %><br />
-	<%= sight.location %>
-	<%= sight.longitude %>
-	<%= sight.latitude %>
-	<%= sight.sighted_at.to_formatted_s(:long) %><br />
+<%# @sightings.each do |sight| %>
+	<!-- <ul>
+	Posted by: <%#= sight.user.email %><br />
+	Topic name: <%# topic_id = sight.topic_id %>
+				<%#= Topic.find(topic_id).name %><br />
+	Description: <%#= sight.description %><br />
+	<%#= sight.location %>
+	<%#= sight.longitude %>
+	<%#= sight.latitude %>
+	<%#= sight.sighted_at.to_formatted_s(:long) %><br />
 
-	<%= image_tag sight.photos.first.image.url if sight.photos.first %><br />
+	<%#= image_tag sight.photos.first.image.url if sight.photos.first %><br />
 	
-	<%= link_to 'Show', sight %>
-	<%= link_to 'Edit', edit_sighting_path(sight) %>
-	<%= link_to 'Destroy', sight, method: :delete, data: { confirm: 'Are you sure?' } %>
+	<%#= link_to 'Show', sight %>
+	<%#= link_to 'Edit', edit_sighting_path(sight) %>
+	<%#= link_to 'Destroy', sight, method: :delete, data: { confirm: 'Are you sure?' } %>
 	
 	</ul>
 
 
 		<%#= render sight.comments %>
 		<li>
-			<%= render 'comments/form',
+			<%#= render 'comments/form',
 					comment: sight.comments.build,
 					sighting: sight %>
 		</li>
 	</ul>
 
 	</li>
-<% end %>
+<%# end %>
 </ul>
-
-</div>
+ -->
 <!--Main content-->
 </div>
 </div>
