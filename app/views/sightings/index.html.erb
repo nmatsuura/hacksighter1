@@ -16,10 +16,9 @@
 		<%#= f.text_field :link_cont %>
 		<%#= f.submit "Submit" %>
 	<%# end %>
-	<!--End of searching>
+	<!--End of searching-->
 
-<!-- <h1>Number of Sightings on Map (<%= @sightings.count %>)</h1>
- -->
+<!--Number of Sightings on Map (<%= @sightings.count %>)-->
 <!-- <h3>Current User: 
 	<% if user_signed_in? %>
 		<%= current_user.email %>
@@ -40,75 +39,112 @@
 	<% end %>
 </select>
 
-
+<!--Can pick which topics to see on map-->
+	<li><%= link_to 'All sightings', sightings_path%> (<%= @sightings_all.count %>)</li>
 	<% @topics.each do |topic| %>
 		<li><%= link_to topic.name, "?topic=#{topic.id}" %> (<%= topic.sightings.count %> sightings)</li>
 	<% end %>
+<!--Can pick which topics to see on map-->
 
-	
 	</div>
 	<!--End sidebar content-->
-
-<%#= link_to 'Add a new topic', new_topic_path, class: 'btn btn-info'%>
 
 	<!--Main content-->
 	<div class="span9">
 
+		<%#= gmaps("markers" => {"data" => @json}) %>
+		<%= gmaps("markers" => {"data" => @json, :options => { :do_clustering => true, randomize: true}}) %>
 
-<%#= gmaps("markers" => {"data" => @json}) %>
-<%= gmaps("markers" => {"data" => @json, :options => { :do_clustering => true, randomize: true}}) %>
+		<br />
+		<div id="days-slider" style="width: 600px"></div>
+		<input type="text" id="days-box" style="width: 100 px" />
+		<br />
 
-<br />
-<div id="days-slider" style="width: 600px"></div>
-<input type="text" id="days-box" style="width: 100 px" />
-<br />
+		</ul>
+		<script type="text/javascript">
+		  now = new Date();
+		  $(document).ready(function() {
+		    Gmaps.map.callback = function() {
+		      var daysRange = {
+		      min: 0,
+		      max: 100,
+		      };
+		      $( "#days-box" ).val( (daysRange.min)+ " - " + (daysRange.max))
+		      $("#days-slider").slider({
+		        range: true,
+		        min: daysRange.min,
+		        max: daysRange.max,
+		        values: [ daysRange.min, daysRange.max ],
 
-</ul>
-<script type="text/javascript">
-  now = new Date();
-  $(document).ready(function() {
-    Gmaps.map.callback = function() {
-      var daysRange = {
-      min: 0,
-      max: 100,
-      };
-      $( "#days-box" ).val( (daysRange.min)+ " - " + (daysRange.max))
-      $("#days-slider").slider({
-        range: true,
-        min: daysRange.min,
-        max: daysRange.max,
-        values: [ daysRange.min, daysRange.max ],
-
-        slide: function(event, ui) {
-          $( "#days-box" ).val( (ui.values[ 0 ])+ " - " + (ui.values[ 1 ]) )
-      
-          _.each(Gmaps.map.markers, function(marker) {
-            var when = new Date(marker.when)
-            var days = (now.getTime()-when.getTime())/86400000;
-            if (days < ui.values[0] || days > ui.values[1]) Gmaps.map.hideMarker(marker)
-            if (days >= ui.values[0] && days <= ui.values[1]) Gmaps.map.showMarker(marker)
-            //console.log(days)
-            //console.log(marker)
-          })
-        }
-      });
-    }
-  });
-</script>
-
+		        slide: function(event, ui) {
+		          $( "#days-box" ).val( (ui.values[ 0 ])+ " - " + (ui.values[ 1 ]) )
+		      
+		          _.each(Gmaps.map.markers, function(marker) {
+		            var when = new Date(marker.when)
+		            var days = (now.getTime()-when.getTime())/86400000;
+		            if (days < ui.values[0] || days > ui.values[1]) Gmaps.map.hideMarker(marker)
+		            if (days >= ui.values[0] && days <= ui.values[1]) Gmaps.map.showMarker(marker)
+		            //console.log(days)
+		            //console.log(marker)
+		          })
+		        }
+		      });
+		    }
+		  });
+		</script>
 
 
-<h3>Topics (<%= @topics.count %>)</h3>
-<h3>Users (<%= @users.count %>)</h3>
-<%#= link_to "Report a new sighting", new_sighting_path, class: 'btn btn-danger'%>
+		<p>
+			<b><%= @topics.count %></b> topics tracked<br />
+			<b><%= @users.count %></b> using HackSIGHTER</b>
+		</p>
+
+	</div>
+
+<div class="row-fluid">
+	<!--Table content-->
+    <div class="span12">
+  
+    
+
+Topic: 
+<table class="table">
+	<thead>
+		<tr>
+			<th>Photo</th>
+			<th>Description</th>
+			<th>Time Spotted</th>
+			<th>Spotter</th>			
+			<th>Comments</th>
+			<th></th>
+			<th></th>
+			<th></th>
+		</tr>
+	</thead>
+
+	<% @sightings.each do |sight| %>
+		<tr>
+			<td><%= image_tag sight.photos.first.image.url(:thumb) if sight.photos.first %></td>
+			<td><%= sight.description %></td>
+			<td><%= sight.sighted_at.to_formatted_s(:long) %></td>
+			<td><%= sight.user.email %></td>
+			<td><%= sight.comments.count %></td>
+			<td><%= link_to 'Show', sight %></td>
+			<td><%= link_to 'Edit', edit_sighting_path(sight)%></td>
+			<td><%= link_to 'Destroy', sight, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+
+		</tr>
+	<% end %>
 
 
-<br />
-<br />
+</table>
 
-<ul>
+</div>
+    <!--End of table content-->
+</div>
+
 <% @sightings.each do |sight| %>
-	<li>
+	<ul>
 	Posted by: <%= sight.user.email %><br />
 	Topic name: <% topic_id = sight.topic_id %>
 				<%= Topic.find(topic_id).name %><br />
@@ -124,7 +160,9 @@
 	<%= link_to 'Edit', edit_sighting_path(sight) %>
 	<%= link_to 'Destroy', sight, method: :delete, data: { confirm: 'Are you sure?' } %>
 	
-	<ul>
+	</ul>
+
+
 		<%#= render sight.comments %>
 		<li>
 			<%= render 'comments/form',

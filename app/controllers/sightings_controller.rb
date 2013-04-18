@@ -18,13 +18,13 @@ class SightingsController < ApplicationController
 		@topics = Topic.all
 
 		# @q = @sightings_all.search(params[:q])
-		# @sightings_search = @q.result(:distinct => true)
+		# @sightings = @q.result
 
 		@json = @sightings.to_gmaps4rails do |sighting, marker|
 	 	 marker.infowindow render_to_string(:partial => "/sightings/infowindow", :locals => { :sighting => sighting})
 
 	 	 marker.json({:when => sighting.sighted_at.strftime("%b %d, %Y")})
-	 end
+	 	end
 
 	
 

@@ -24,24 +24,22 @@
 	<!--End original sighting, photos, 1st row-->
   </div>
 
+	<div class="row-fluid">
+		<!--Edit form, 2nd row-->
+	 	<div class="span12">
 
+		<h3><p>Edit Sighting</p></h3>
 
-<h3><p>Edit Sighting</p></h3>
+		<%#= Topic.find(@sighting.topic_id).name%>
+		<%= render 'form' %>
 
-	
-	<%#= Topic.find(@sighting.topic_id).name%>
-	<%= render 'form' %>
-
+			<p>
+			<%= gmaps("markers" => {"data" => @json}) %>
+			</p>
 		
+		</div>
 
-
-
-
-
-<p>
-<%= gmaps("markers" => {"data" => @json}) %>
-</p>
-
+	</div>
 </div>
 
 
