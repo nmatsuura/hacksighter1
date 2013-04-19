@@ -39,8 +39,28 @@
 		      			Not signed in
 		      		</p>
 		      	</div>
-		
 		<% end %>
+
+		<!-- Add searching to Navbar -->
+			<form class = "navbar-form">
+				<%= search_form_for @q do |f| %>
+				<%#= f.label :location_cont, "Search Location" %>
+				<%= f.text_field :location_cont, placeholder: "Location Keyword" %>
+
+				<%#= f.label :topic_name_cont, "Search Topic" %>
+				<%= f.text_field :topic_name_cont, placeholder: "Topic Keyword" %>
+
+				<%#= f.label :description_cont, "Description" %>
+				<%= f.text_field :description_cont, placeholder: "Description Keyword" %>
+
+				<%= button_tag(type: 'submit', class: "btn btn-info") do %>
+				    <i class="icon-search icon-white"></i>
+				  <% end %>
+			
+				<% end %>
+			</form>
+
+		<!-- End adding searching to Navbar -->
   </div>
 </div>
 <!-- End of Added Navbar -->

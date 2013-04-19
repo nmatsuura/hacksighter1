@@ -10,15 +10,19 @@
 	<!--Searching-->  
 	<%= search_form_for @q do |f| %>
 		<%= f.label :location_cont, "Search Location" %>
-		<%= f.text_field :location_cont %>
+		<%= f.text_field :location_cont, placeholder: "Location Keyword" %>
 		
 		<%= f.label :topic_name_cont, "Search Topic" %>
-		<%= f.text_field :topic_name_cont %>
+		<%= f.text_field :topic_name_cont, placeholder: "Topic Keyword" %>
 
-		<%= f.label :description_cont, "Search Description" %>
-		<%= f.text_field :description_cont %>
+		<%= f.label :description_cont, "Description" %>
+		<%= f.text_field :description_cont, placeholder: "Description Keyword" %>
 
-		<%= f.submit "Submit" %>
+		<%#= f.submit "Submit" %>
+		<%= button_tag(type: 'submit', class: "btn btn-primary") do %>
+		    <i class="icon-search icon-white"></i>
+		  <% end %>
+		<i class="icon-search"></i>
 	<% end %>
 	<!--End of searching-->
 
@@ -35,7 +39,7 @@
 	<%#= form_tag sightings_path, method: :get do %>
 	<!-- 	<select name="topic">
 			<option value="">
-				<%#= link_to 'All sightings', sightings_path%> (<%= @sightings_all.count %>)
+				<%#= link_to 'All sightings', sightings_path%> (<%#= @sightings_all.count %>)
 			</option>
 			<%# @topics.each do |topic| %>
 				<option value="<%#= topic.id %>">

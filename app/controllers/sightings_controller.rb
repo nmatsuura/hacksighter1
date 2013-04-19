@@ -4,7 +4,6 @@ class SightingsController < ApplicationController
 
 	def index
 		@q = Sighting.search(params[:q])
-
 		if params[:q].present?
 			@sightings = @q.result
 		elsif params[:topic].present?
@@ -53,6 +52,10 @@ class SightingsController < ApplicationController
 	def new
 		@sighting = Sighting.new
 		@photos = 3.times.map{@sighting.photos.build}
+		
+		@q = Sighting.search(params[:q])
+			@sightings = @q.result
+	
 	end
 
 	def create
@@ -69,6 +72,10 @@ class SightingsController < ApplicationController
 		@sighting = Sighting.find(params[:id])
 		@json = Sighting.find(params[:id]).to_gmaps4rails
 		@photos = 3.times.map{@sighting.photos.build}
+
+		@q = Sighting.search(params[:q])
+			@sightings = @q.result
+
 	end
 
 	def update
@@ -89,6 +96,10 @@ class SightingsController < ApplicationController
 	def show
 		@sighting = Sighting.find(params[:id])
 		@json = Sighting.find(params[:id]).to_gmaps4rails
+
+		@q = Sighting.search(params[:q])
+					@sightings = @q.result
+		
 	end
 
 
