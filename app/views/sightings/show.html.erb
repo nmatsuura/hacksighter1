@@ -52,7 +52,11 @@
     <!--Main content, 2nd row-->
     <div class="span9">    
 		<p>
-		<%= gmaps("markers" => {"data" => @json}) %>
+		<%= gmaps({
+				"map_options" => {"auto_zoom" => false, "zoom" => 16 },
+				"markers" => {"data" => @json}
+				})
+			%>
 		</p>
 	</div>
 	<!-- End main content, 2nd row-->
