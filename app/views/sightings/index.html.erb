@@ -12,8 +12,12 @@
 		<%= f.label :location_cont, "Search Location" %>
 		<%= f.text_field :location_cont %>
 		
-		<%#= f.label :link_cont, "Search Link" %>
-		<%#= f.text_field :link_cont %>
+		<%= f.label :topic_name_cont, "Search Topic" %>
+		<%= f.text_field :topic_name_cont %>
+
+		<%= f.label :description_cont, "Search Description" %>
+		<%= f.text_field :description_cont %>
+
 		<%= f.submit "Submit" %>
 	<% end %>
 	<!--End of searching-->
@@ -46,10 +50,6 @@
 
 
 <!--Can pick which topics to see on map-->
-	<!-- <li><%#= link_to 'All sightings', sightings_path%> (<%#= @sightings_all.count %>)</li>
-	<%# @topics.each do |topic| %>
-		<li><%#= link_to topic.name, "?topic=#{topic.id}" %> (<%#= topic.sightings.count %> sightings)</li>
-	<%# end %> -->
 
 <div class="dropdown">
   <a class="dropdown-toggle btn" data-toggle="dropdown" href="#" >
@@ -58,6 +58,7 @@
   </a>
   <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
     <li><%= link_to "ALL (#{@sightings_all.count})", sightings_path %></li>
+    <li class = "divider"></li>
   
   	<% @topics.each do |topic| %>
 		<li>
@@ -70,9 +71,22 @@
 
 <!--Can pick which topics to see on map-->
 
+<p>
+<div class="dropdown">
+  <a class="dropdown-toggle btn" data-toggle="dropdown" href="#" >
+  	TOP 5
+  	<b class="caret"></b>
+  </a>
+  <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+    <li>Recent Sightings</li>
+    <li>Topics</li>
+    <li>Commented Sightings</li>
+  </ul>
+</div>
+</p>
 
 <p>
-<b>TOP 5</b>
+<b>Top 5</b>
 	<% @sightings_recent5.each do |recent5| %>
 	<li><% topic_id = recent5.topic_id %>
 					<%= Topic.find(topic_id).name.upcase %></li>

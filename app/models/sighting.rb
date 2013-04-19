@@ -34,7 +34,11 @@ class Sighting < ActiveRecord::Base
 	# Code below is modified "attr_accessor", so the default time and date is in the fields of edit
 	
 	def sighted_date
-		@sighted_date || sighted_at.to_date
+		if @sighted_date
+			@sighted_date
+		elsif sighted_at
+			sighted_at.to_date
+		end
 	end
 
 	def sighted_date=(value)
@@ -42,7 +46,11 @@ class Sighting < ActiveRecord::Base
 	end
 
 	def sighted_time
-		@sighted_time || sighted_at.strftime("%I:%M%p")
+		if @sighted_time
+			@sighted_time
+		elseif sighted_time
+			sighted_at.strftime("%I:%M%p")
+		end
 	end
 
 	def sighted_time=(value)
