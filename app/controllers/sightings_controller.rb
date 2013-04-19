@@ -3,7 +3,11 @@ class SightingsController < ApplicationController
 	before_filter :authenticate_user!, except: [:index]
 
 	def index
-		if params[:topic].present?
+		@q = Sighting.search(params[:q])
+
+		if params[:q].present?
+			@sightings = @q.result
+		elsif params[:topic].present?
 			@sightings = Sighting.includes(:comments).where(topic_id: params[:topic])
 		else
 			@sightings = Sighting.includes(:comments).all
@@ -18,9 +22,6 @@ class SightingsController < ApplicationController
 		@topics = Topic.all
 
 		@sightings_recent5 = Sighting.recent5
-
-		# @q = @sightings_all.search(params[:q])
-		# @sightings = @q.result
 
 		@json = @sightings.to_gmaps4rails do |sighting, marker|
 	 	 marker.infowindow render_to_string(:partial => "/sightings/infowindow", :locals => { :sighting => sighting})

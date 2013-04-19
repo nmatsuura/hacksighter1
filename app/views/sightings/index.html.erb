@@ -8,14 +8,14 @@
 	      	<p><%= link_to "Add a new topic", new_topic_path, class: "btn btn" %></p>
 	
 	<!--Searching-->  
-	<%#= search_form_for @q do |f| %>
-		<%#= f.label :location_cont, "Search Location" %>
-		<%#= f.text_field :location_cont %>
+	<%= search_form_for @q do |f| %>
+		<%= f.label :location_cont, "Search Location" %>
+		<%= f.text_field :location_cont %>
 		
 		<%#= f.label :link_cont, "Search Link" %>
 		<%#= f.text_field :link_cont %>
-		<%#= f.submit "Submit" %>
-	<%# end %>
+		<%= f.submit "Submit" %>
+	<% end %>
 	<!--End of searching-->
 
 <!--Number of Sightings on Map (<%= @sightings.count %>)-->
@@ -27,34 +27,44 @@
 	<%# end %></h3>
  -->
 
+<!-- BELOW SECTION:  Ryan showed me way to make dropdown using css -->
+	<%#= form_tag sightings_path, method: :get do %>
+	<!-- 	<select name="topic">
+			<option value="">
+				<%#= link_to 'All sightings', sightings_path%> (<%= @sightings_all.count %>)
+			</option>
+			<%# @topics.each do |topic| %>
+				<option value="<%#= topic.id %>">
+				<%#= topic.name%> (<%#= topic.sightings.count %> sightings)
+				</option>
+			<%# end %>
+		</select>
 
-<select>
-	<option>
-		<%= link_to 'All sightings', sightings_path%> (<%= @sightings_all.count %>)
-	</option>
-	<% @topics.each do |topic| %>
-		<option>
-		<%= link_to topic.name, "?topic=#{topic.id}" %> (<%= topic.sightings.count %> sightings)
-		</option>
-	<% end %>
-</select>
+		<input type='submit' value='Go!' />
+	<%# end %>-->
+<!-- END SECTION:  Ryan showed me way to make dropdown using css -->
+
 
 <!--Can pick which topics to see on map-->
-	<li><%= link_to 'All sightings', sightings_path%> (<%= @sightings_all.count %>)</li>
-	<% @topics.each do |topic| %>
-		<li><%= link_to topic.name, "?topic=#{topic.id}" %> (<%= topic.sightings.count %> sightings)</li>
-	<% end %>
+	<!-- <li><%#= link_to 'All sightings', sightings_path%> (<%#= @sightings_all.count %>)</li>
+	<%# @topics.each do |topic| %>
+		<li><%#= link_to topic.name, "?topic=#{topic.id}" %> (<%#= topic.sightings.count %> sightings)</li>
+	<%# end %> -->
 
 <div class="dropdown">
-  <a class="dropdown-toggle" data-toggle="dropdown" href="#" class: "btn btn" >Show Sightings</a>
+  <a class="dropdown-toggle btn" data-toggle="dropdown" href="#" >
+  	Show Sightings
+  	<b class="caret"></b>
+  </a>
   <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-    <%= link_to 'All sightings', sightings_path%> (<%= @sightings_all.count %>)
-  </ul>
-  <% @topics.each do |topic| %>
-		<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-		<%= link_to topic.name, "?topic=#{topic.id}" %> (<%= topic.sightings.count %> sightings)
-		</ul>
+    <li><%= link_to "ALL (#{@sightings_all.count})", sightings_path %></li>
+  
+  	<% @topics.each do |topic| %>
+		<li>
+		<%= link_to "#{topic.name.upcase} (#{topic.sightings.count})", "?topic=#{topic.id}" %> 
+		</li>
 	<% end %>
+  </ul>
 </div>
 
 
@@ -127,100 +137,57 @@
 	<!--Table content-->
     <div class="span12">
     
+	<div class="accordion" id="accordion2">
+	  <div class="accordion-group">
+	    <div class="accordion-heading">
+	      <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">
+	        <h4>MAP SIGHTINGS</h4>
+	      </a>
+	    </div>
+	    <div id="collapseOne" class="accordion-body collapse in">
+	      <div class="accordion-inner">
+	       	<table class="table table-hover table-condensed">
+				<thead>
+					<tr>
+						<th>TOPIC</th>
+						<th>Description</th>
+						<th>Location</th>
+						<th>Time Spotted</th>
+						<th>Spotter</th>			
+						<th>Comments</th>
+						<th></th>
+						<th></th>
+						<th></th>
+					</tr>
+				</thead>
+					<% @sightings.each do |sight| %>
+					<tr>
+						<td><% topic_id = sight.topic_id %>
+							<%= Topic.find(topic_id).name.upcase %></td>
+						<td><%= sight.description %></td>
+						<td><%= sight.location %>
+						<td><%= sight.sighted_at.to_formatted_s(:long) %></td>
+						<td><%= sight.user.email %></td>
+						<td><%= sight.comments.count %></td>
+						<% if sight.user == @current_user %>
+							<td><%= link_to 'Show', sight, class: "btn btn" %></td>
+							<td><%= link_to 'Edit', edit_sighting_path(sight), class: "btn btn"%></td>
+							<td><%= link_to 'Destroy', sight, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn" %></td>
+						<% else %>
+							<td><%= link_to 'Show', sight, class: "btn btn" %></td>
+							<td></td>
+							<td></td>
+						<% end %>
+					</tr>
+				<% end %>
+			</table>
 
-<!-- <h4>MAP SIGHTINGS</h4>
-<table class="table table-hover table-condensed">
-	<thead>
-		<tr>
-			<th>TOPIC</th>
-			<th>Description</th>
-			<th>Location</th>
-			<th>Time Spotted</th>
-			<th>Spotter</th>			
-			<th>Comments</th>
-			<th></th>
-			<th></th>
-			<th></th>
-		</tr>
-	</thead>
-
-	<%# @sightings.each do |sight| %>
-		<tr>
-			<td><%# topic_id = sight.topic_id %>
-				<%#= Topic.find(topic_id).name.upcase %></td>
-			<td><%#= sight.description %></td>
-			<td><%#= sight.location %>
-			<td><%#= sight.sighted_at.to_formatted_s(:long) %></td>
-			<td><%#= sight.user.email %></td>
-			<td><%#= sight.comments.count %></td>
-			<%# if sight.user == @current_user %>
-				<td><%#= link_to 'Show', sight, class: "btn btn" %></td>
-				<td><%#= link_to 'Edit', edit_sighting_path(sight), class: "btn btn"%></td>
-				<td><%#= link_to 'Destroy', sight, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn" %></td>
-			<%# else %>
-				<td><%#= link_to 'Show', sight, class: "btn btn" %></td>
-				<td></td>
-				<td></td>
-			<%# end %>
-		</tr>
-	<%# end %>
-
-
-</table>
-
-</div> -->
-
-<div class="accordion" id="accordion2">
-  <div class="accordion-group">
-    <div class="accordion-heading">
-      <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">
-        <h4>MAP SIGHTINGS</h4>
-      </a>
-    </div>
-    <div id="collapseOne" class="accordion-body collapse in">
-      <div class="accordion-inner">
-       	<table class="table table-hover table-condensed">
-			<thead>
-				<tr>
-					<th>TOPIC</th>
-					<th>Description</th>
-					<th>Location</th>
-					<th>Time Spotted</th>
-					<th>Spotter</th>			
-					<th>Comments</th>
-					<th></th>
-					<th></th>
-					<th></th>
-				</tr>
-			</thead>
-				<% @sightings.each do |sight| %>
-				<tr>
-					<td><% topic_id = sight.topic_id %>
-						<%= Topic.find(topic_id).name.upcase %></td>
-					<td><%= sight.description %></td>
-					<td><%= sight.location %>
-					<td><%= sight.sighted_at.to_formatted_s(:long) %></td>
-					<td><%= sight.user.email %></td>
-					<td><%= sight.comments.count %></td>
-					<% if sight.user == @current_user %>
-						<td><%= link_to 'Show', sight, class: "btn btn" %></td>
-						<td><%= link_to 'Edit', edit_sighting_path(sight), class: "btn btn"%></td>
-						<td><%= link_to 'Destroy', sight, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn" %></td>
-					<% else %>
-						<td><%= link_to 'Show', sight, class: "btn btn" %></td>
-						<td></td>
-						<td></td>
-					<% end %>
-				</tr>
-			<% end %>
-		</table>
-
-      </div>
-    </div>
-  </div>
-  </div>
-</div>
-
+	      </div>
+	    </div>
+	  </div>
+	  </div>
+	</div>
+	</div>
     <!--End of table content-->
 
 <%# @sightings.each do |sight| %>

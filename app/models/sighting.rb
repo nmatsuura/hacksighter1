@@ -30,14 +30,31 @@ class Sighting < ActiveRecord::Base
 	end
 
 
-	attr_accessor :sighted_date, :sighted_time
+	# Setting Active Record to make a Datetime that can be entered in viewer
+	# Code below is modified "attr_accessor", so the default time and date is in the fields of edit
+	
+	def sighted_date
+		@sighted_date || sighted_at.to_date
+	end
+
+	def sighted_date=(value)
+		@sighted_date = value
+	end
+
+	def sighted_time
+		@sighted_time || sighted_at.strftime("%I:%M%p")
+	end
+
+	def sighted_time=(value)
+		@sighted_time = value
+	end
 
 	before_validation :set_sighted_at #ALMOST ALWAYS DO CALLBACK BEFORE_VALIDATION, NOT BEFORE_SAVE
 
 	# private
 	def set_sighted_at
-		if sighted_date.present?
-			self[:sighted_at] = Time.zone.parse("#{sighted_date} #{sighted_time}")
+		if @sighted_date.present?
+			self[:sighted_at] = Time.zone.parse("#{@sighted_date} #{@sighted_time}")
 		end
 	end
 
