@@ -5,8 +5,6 @@ class TopicsController < ApplicationController
 	def new
 		@topic = Topic.new
 
-		@q = Sighting.search(params[:q])
-					@sightings = @q.result
 		
 	end
 
