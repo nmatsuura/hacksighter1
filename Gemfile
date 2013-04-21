@@ -12,6 +12,7 @@ gem 'pry'  # Enrik installed this just to test some issues with my app!
 gem 'paperclip'
 gem 'jquery-ui-rails'
 gem 'ransack'
+gem 'aws-sdk'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
