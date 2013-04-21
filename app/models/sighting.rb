@@ -33,43 +33,6 @@ class Sighting < ActiveRecord::Base
 	#          }
 	# end
 
-	# def gmaps4rails_marker_picture
-		
-	#          {
-	#           "picture" => "/assets/" + "led" + ".gif",
-	#           "width" => '35',
-	#           "height" => '51'
-	#          }
-	# end
-
-	# def self.category
-	# 	"led"
-	# 	# @sightings_last = Sighting.last
-	# 	# if @sightings_last
-	# 	# 	"led"
-	# 	# else
-	# 	# 	"blue-dot"
-	# 	# end
-	# end
-
-
-	# def gmaps4rails_marker_picture
-	# 	if Sighting.last
-	#          {
-	#           "picture" => "/assets/led.gif",
-	#           "width" => '35',
-	#           "height" => '51'
-	#          }
-	#     else
-	#     	 {
-	#           "picture" => "/assets/blue-dot.gif",
-	#           "width" => '35',
-	#           "height" => '51'
-	#          }
-	#     end
-	# end
-
-
 	def self.recent5
 		Sighting.order("sighted_at desc").limit(5)
 	end
