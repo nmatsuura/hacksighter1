@@ -25,13 +25,13 @@ class Sighting < ActiveRecord::Base
 	# end
 
 
-	# def gmaps4rails_marker_picture
-	#          {
-	#           "picture" => "/assets/led.gif",
-	#           "width" => '35',
-	#           "height" => '51'
-	#          }
-	# end
+	def gmaps4rails_marker_picture
+	         {
+	          "picture" => "/assets/led.gif",
+	          "width" => '35',
+	          "height" => '51'
+	         }
+	end
 
 	def self.recent5
 		Sighting.order("sighted_at desc").limit(5)
