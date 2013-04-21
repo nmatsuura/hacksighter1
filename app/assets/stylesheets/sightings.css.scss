@@ -3,12 +3,13 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 @import 'bootstrap';
+@import 'bootstrap-responsive';
+
 body
 {
 	padding-top: 40 px;
 }
 
-@import 'bootstrap-responsive';
 
 #map img { 
   max-width: none;

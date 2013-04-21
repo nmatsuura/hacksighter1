@@ -146,7 +146,7 @@
 		          $( "#days-box" ).val( slider_display_string(-ui.values[0], -ui.values[1]));
 		          //$( "#days-box" ).val( "filter: last " + Math.ceil(-ui.values[0]/24) + " days")
 		      
-		          _.each(Gmaps.map.markers, function(marker) {
+		          $.each(Gmaps.map.markers, function(i, marker) {
 		            var when = new Date(marker.when)
 		            var hours = -(now.getTime()-when.getTime())/3600000;
 		            if (hours < ui.values[0] || hours > ui.values[1]) Gmaps.map.hideMarker(marker)
