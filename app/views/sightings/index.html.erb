@@ -2,11 +2,9 @@
   
 <!--1st row-->
   <div class="row-fluid">
-
   	<div class="span12">
-
 	<!--Searching--> 
-
+		<form class="form-inline">
 			<%= search_form_for @q do |f| %>
 				<%#= f.label :location_cont, "Search Location" %>
 				<%= f.text_field :location_cont, placeholder: "Location Keyword" %>
@@ -20,22 +18,21 @@
 				<%#= f.submit "Submit" %>
 				<%= button_tag(type: 'submit', class: "btn btn-info") do %>
 				    <i class="icon-search icon-white"></i>
-				  <% end %>
+				<% end %>
 			<% end %>
-
+		</form>
 	<!--End of searching-->
 	</div>
   </div>
 <!--End of 1st row-->
 
+<!--Start of 2nd row-->
   	<!--Sidebar content, 2nd row-->
   	<div class="row-fluid">
     	<div class="span3">
       
 	      	<p><%= link_to "Report a sighting", new_sighting_path, class: "btn btn" %></p>		
 	      	<p><%= link_to "Add a new topic", new_topic_path, class: "btn btn" %></p>
-	
-	
 
 <!--Number of Sightings on Map (<%= @sightings.count %>)-->
 <!-- <h3>Current User: 
@@ -63,12 +60,11 @@
 	<%# end %>-->
 <!-- END SECTION:  Ryan showed me way to make dropdown using css -->
 
-
 <!--Can pick which topics to see on map-->
 
 <div class="dropdown">
-  <a class="dropdown-toggle btn" data-toggle="dropdown" href="#" >
-  	Show Sightings
+  <a class="dropdown-toggle btn btn-info" data-toggle="dropdown" href="#" >
+  	SHOW SIGHTINGS
   	<b class="caret"></b>
   </a>
   <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
@@ -85,7 +81,7 @@
 
 <!--Can pick which topics to see on map-->
 
-<p>
+<!-- <p>
 <div class="dropdown">
   <a class="dropdown-toggle btn" data-toggle="dropdown" href="#" >
   	TOP 5
@@ -98,21 +94,19 @@
   </ul>
 </div>
 </p>
-
-<p>
+ -->
+<!-- <p>
 <b>Top 5</b>
-	<% @sightings_recent5.each do |recent5| %>
-	<li><% topic_id = recent5.topic_id %>
-					<%= Topic.find(topic_id).name.upcase %></li>
-	<% end %>
-</p>
+	<%# @sightings_recent5.each do |recent5| %>
+	<li><%# topic_id = recent5.topic_id %>
+					<%#= Topic.find(topic_id).name.upcase %></li>
+	<#% end %>
+</p> -->
 	</div>
 	<!--End sidebar content, 2nd row-->
 
 	<!--Main content, 2nd row-->
 	<div class="span9">
-
-		<%#= gmaps("markers" => {"data" => @json}) %>
 		<%= gmaps("markers" => {"data" => @json, :options => { :do_clustering => true, randomize: true}}) %>
 
 		<br />
@@ -122,14 +116,23 @@
 
 		</ul>
 		<script type="text/javascript">
+
+                  function slider_display_string(from,to){
+                    return "filter: " + Math.ceil(from/24)+ " to " + Math.floor(to/24) + " days"
+                  }
+
 		  now = new Date();
+                  first_sight = new Date('<%= @sightings.first.sighted_at.to_s unless @sightings.empty?%>');
+                  maxhours = Math.ceil((now.getTime()-first_sight.getTime())/3600000);
+                  if (maxhours < 0 || maxhours > 1000 || isNaN(maxhours)) maxhours = 2400; 
+
 		  $(document).ready(function() {
 		    Gmaps.map.callback = function() {
 		      var daysRange = {
-		      min: 0,
-		      max: 100,
+		      min:-maxhours, 
+		      max: 0,
 		      };
-		      $( "#days-box" ).val( (daysRange.min)+ " - " + (daysRange.max))
+		      $( "#days-box" ).val(slider_display_string(-daysRange.min, -daysRange.max));
 		      $("#days-slider").slider({
 		        range: true,
 		        min: daysRange.min,
@@ -137,16 +140,16 @@
 		        values: [ daysRange.min, daysRange.max ],
 
 		        slide: function(event, ui) {
-		          $( "#days-box" ).val( (ui.values[ 0 ])+ " - " + (ui.values[ 1 ]) )
+		          $( "#days-box" ).val( slider_display_string(-ui.values[0], -ui.values[1]));
+		          //$( "#days-box" ).val( "filter: last " + Math.ceil(-ui.values[0]/24) + " days")
 		      
 		          _.each(Gmaps.map.markers, function(marker) {
 		            var when = new Date(marker.when)
-		            var days = (now.getTime()-when.getTime())/86400000;
-		            if (days < ui.values[0] || days > ui.values[1]) Gmaps.map.hideMarker(marker)
-		            if (days >= ui.values[0] && days <= ui.values[1]) Gmaps.map.showMarker(marker)
-		            //console.log(days)
-		            //console.log(marker)
+		            var hours = -(now.getTime()-when.getTime())/3600000;
+		            if (hours < ui.values[0] || hours > ui.values[1]) Gmaps.map.hideMarker(marker)
+		            if (hours >= ui.values[0] && hours <= ui.values[1]) Gmaps.map.showMarker(marker)
 		          })
+
 		        }
 		      });
 		    }
@@ -154,13 +157,16 @@
 		</script>
 
 
+
 		<p>
-			<b><%= @topics.count %></b> topics tracked<br />
-			<b><%= @users.count %></b> spotters</b>
+			<b><%= @topics.count %></b> <i class="icon-tags"></i><br />
+			<b><%= @users.count %></b> <i class="icon-user"></i><br />
 		</p>
 
 	</div>
+<!--End of 2nd row-->
 
+<!--Start of 3rd row-->
 <div class="row-fluid">
 	<!--Table content, 3rd row-->
     <div class="span12">
@@ -251,5 +257,7 @@
 </ul>
  -->
 <!--Main content-->
+
+<!--End of 3rd row-->
 </div>
 </div>
