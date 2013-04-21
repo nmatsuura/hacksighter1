@@ -26,51 +26,36 @@ class SightingsController < ApplicationController
 
 		
 		@sighting_last=@sightings.last
-			    @json1 = @sighting_last.to_gmaps4rails do |sighting, marker|
-
-				  marker.picture({
-				                  :picture => "http://www.google.com/intl/en_us/mapfiles/ms/micons/red-dot.png",
-				                  :width   => 32,
-				                  :height  => 32
-				                 })
-				
-				  marker.infowindow render_to_string(:partial => "/sightings/infowindow", :locals => { :sighting => sighting})
-				  marker.json({:when => sighting.sighted_at.to_s})
-			
-		end
-
-		@sighting_second = Sighting.find(2)
-
-		if @sighting_second.present?
-			@sighting_rest = @sightings.where(id: (1..(Sighting.last.id-1))) 
-			# @sighting_rest = @sightings.first
-
-				    @json2= @sighting_rest.to_gmaps4rails do |sighting, marker|
+			@json1 = @sighting_last.to_gmaps4rails do |sighting, marker|
 
 					  marker.picture({
-					                  :picture => "http://www.google.com/intl/en_us/mapfiles/ms/micons/blue-dot.png",
+					                  :picture => "http://www.google.com/intl/en_us/mapfiles/ms/micons/red-dot.png",
 					                  :width   => 32,
 					                  :height  => 32
 					                 })
 					
 					  marker.infowindow render_to_string(:partial => "/sightings/infowindow", :locals => { :sighting => sighting})
 					  marker.json({:when => sighting.sighted_at.to_s})
-			end	  
-		end
+			end unless @sightings.length == 0		
+		
+			#@sightings_rest = @sightings - @sightings_last
+			#@sighting_rest = @sighting.where(id: ((first)..(@sightings.last.id-1))) 
 
-		    @json = (JSON.parse(@json1) + JSON.parse(@json2)).to_json
+		@sighting_rest = @sightings.length > 0 ? @sightings - [@sighting_last] : @sightings
+			@json2= @sighting_rest.to_gmaps4rails do |sighting, marker|
 
+					  marker.picture({
+					                  :picture => "http://www.google.com/intl/en_us/mapfiles/ms/micons/blue-dot.png",
+					                  :width   => 32,
+					                  :height  => 32
+					                 })
 
+					  marker.infowindow render_to_string(:partial => "/sightings/infowindow", :locals => { :sighting => sighting})
+					  marker.json({:when => sighting.sighted_at.to_s})
+					end
+		
 
-
-		# @json = @sightings.to_gmaps4rails do |sighting, marker|
-
-	 # 	 marker.infowindow render_to_string(:partial => "/sightings/infowindow", :locals => { :sighting => sighting})
-
-	 	 # marker.json({:when => sighting.sighted_at.strftime("%b %d, %Y")})
-	# 	 marker.json({:when => sighting.sighted_at.to_s})
-	 	
-	 	# end
+		@json = ((@json1? JSON.parse(@json1) : []) + JSON.parse(@json2)).to_json
 
 	
 
