@@ -12,6 +12,7 @@ class Sighting < ActiveRecord::Base
 
 	validates :location, presence: true
 	validates :user, presence: true
+	validates :sighted_at, presence: true
 
 	acts_as_gmappable :process_geocoding => false
 
@@ -71,6 +72,9 @@ class Sighting < ActiveRecord::Base
 	def set_sighted_at
 		if @sighted_date.present?
 			self[:sighted_at] = Time.zone.parse("#{@sighted_date} #{@sighted_time}")
+		end
+		if self[:sighted_at].blank?
+			self[:sighted_at] = Time.zone.now
 		end
 	end
 

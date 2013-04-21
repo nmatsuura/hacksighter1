@@ -7,12 +7,12 @@ class SightingsController < ApplicationController
 		if params[:q].present?
 			@sightings = @q.result
 		elsif params[:topic].present?
-			@sightings = Sighting.includes(:comments).where(topic_id: params[:topic])
+			@sightings = Sighting.includes(:comments).order(:sighted_at).where(topic_id: params[:topic])
 		else
-			@sightings = Sighting.includes(:comments).all
+			@sightings = Sighting.includes(:comments).order(:sighted_at).all
 		end
 		
-		@sightings_all = Sighting.includes(:comments).all
+		@sightings_all = Sighting.includes(:comments).order(:sighted_at).all
 
 		@users = User.all
 
