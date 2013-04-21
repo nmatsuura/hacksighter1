@@ -22,12 +22,47 @@ class SightingsController < ApplicationController
 
 		@sightings_recent5 = Sighting.recent5
 
-		@json = @sightings.to_gmaps4rails do |sighting, marker|
-	 	 marker.infowindow render_to_string(:partial => "/sightings/infowindow", :locals => { :sighting => sighting})
+		# @sightings_last = Sighting.last
+		# if @sightings_last
+		# 	@category = "led"
+		# else
+		# 	@category = "blue-dot"
+		# end
+
+		# Try to implement different markers
+
+		@sighting_last=Sighting.last
+		    @json1 = @sighting_last.to_gmaps4rails do |sighting, marker|
+
+			  marker.picture({
+			                  :picture => "http://www.google.com/intl/en_us/mapfiles/ms/micons/red-dot.png",
+			                  :width   => 32,
+			                  :height  => 32
+			                 })
+			  end
+
+		@sighting_rest = Sighting.where(id: (1..(Sighting.last.id-1)))
+		    @json2= @sighting_rest.to_gmaps4rails do |sighting, marker|
+
+			  marker.picture({
+			                  :picture => "http://www.google.com/intl/en_us/mapfiles/ms/micons/blue-dot.png",
+			                  :width   => 32,
+			                  :height  => 32
+			                 })
+			  end
+
+		    @json = (JSON.parse(@json1) + JSON.parse(@json2)).to_json
+
+
+
+
+		# @json = @sightings.to_gmaps4rails do |sighting, marker|
+
+	 # 	 marker.infowindow render_to_string(:partial => "/sightings/infowindow", :locals => { :sighting => sighting})
 
 	 	 # marker.json({:when => sighting.sighted_at.strftime("%b %d, %Y")})
-	 	 marker.json({:when => sighting.sighted_at.to_s})
-	 	end
+	# 	 marker.json({:when => sighting.sighted_at.to_s})
+	 	
 
 	
 

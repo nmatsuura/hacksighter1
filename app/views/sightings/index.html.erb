@@ -109,6 +109,8 @@
 	<div class="span9">
 		<%#= gmaps("markers" => {"data" => @json, :options => { :do_clustering => true, randomize: true}}) %>
 
+		<%= @sightings.last.id%>
+
 		<%= gmaps("markers" => {"data" => @json, :options => { :raw => '{animation: google.maps.Animation.BOUNCE}'} }) %>
 
 		<br />
