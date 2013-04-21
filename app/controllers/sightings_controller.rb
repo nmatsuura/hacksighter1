@@ -24,7 +24,7 @@ class SightingsController < ApplicationController
 
 		# Try to implement different markers
 
-		@sighting_last=Sighting.last
+		@sighting_last=@sightings.last
 		    @json1 = @sighting_last.to_gmaps4rails do |sighting, marker|
 
 			  marker.picture({
@@ -38,7 +38,7 @@ class SightingsController < ApplicationController
 			  
 			  end
 
-		@sighting_rest = Sighting.where(id: (1..(Sighting.last.id-1)))
+		@sighting_rest = @sightings.where(id: (1..(Sighting.last.id-1)))
 		    @json2= @sighting_rest.to_gmaps4rails do |sighting, marker|
 
 			  marker.picture({
