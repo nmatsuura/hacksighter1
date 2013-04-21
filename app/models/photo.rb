@@ -10,6 +10,11 @@ class Photo < ActiveRecord::Base
 	  		small: '150x150>',
 	  		medium: '200x200>',
 	  		large: '300x300>'
+	  	},
+	  	storage: :s3, s3_credentials: {
+	  		access_key_id: "AKIAJ3YA3T7EJX4HPKCA",
+  			secret_access_key: "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",
+  			bucket: 'Hacksighter'
 	  	}
 
 end
