@@ -107,7 +107,9 @@
 
 	<!--Main content, 2nd row-->
 	<div class="span9">
-		<%= gmaps("markers" => {"data" => @json, :options => { :do_clustering => true, randomize: true}}) %>
+		<%#= gmaps("markers" => {"data" => @json, :options => { :do_clustering => true, randomize: true}}) %>
+
+		<%= gmaps("markers" => {"data" => @json, :options => { :raw => '{animation: google.maps.Animation.BOUNCE}'} } =>
 
 		<br />
 		<div id="days-slider" style="width: 600px"></div>
@@ -124,7 +126,8 @@
 		  now = new Date();
                   first_sight = new Date('<%= @sightings.first.sighted_at.to_s unless @sightings.empty?%>');
                   maxhours = Math.ceil((now.getTime()-first_sight.getTime())/3600000);
-                  if (maxhours < 0 || maxhours > 1000 || isNaN(maxhours)) maxhours = 2400; 
+                  if (maxhours < 0 || maxhours > 24000 || isNaN(maxhours)) maxhours = 2400; 
+                  //$ If more than maxhours, will default to 2400 hours 
 
 		  $(document).ready(function() {
 		    Gmaps.map.callback = function() {
