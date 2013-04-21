@@ -24,33 +24,39 @@ class SightingsController < ApplicationController
 
 		# Try to implement different markers
 
+		
 		@sighting_last=@sightings.last
-		    @json1 = @sighting_last.to_gmaps4rails do |sighting, marker|
+			    @json1 = @sighting_last.to_gmaps4rails do |sighting, marker|
 
-			  marker.picture({
-			                  :picture => "http://www.google.com/intl/en_us/mapfiles/ms/micons/red-dot.png",
-			                  :width   => 32,
-			                  :height  => 32
-			                 })
+				  marker.picture({
+				                  :picture => "http://www.google.com/intl/en_us/mapfiles/ms/micons/red-dot.png",
+				                  :width   => 32,
+				                  :height  => 32
+				                 })
+				
+				  marker.infowindow render_to_string(:partial => "/sightings/infowindow", :locals => { :sighting => sighting})
+				  marker.json({:when => sighting.sighted_at.to_s})
 			
-			  marker.infowindow render_to_string(:partial => "/sightings/infowindow", :locals => { :sighting => sighting})
-			  marker.json({:when => sighting.sighted_at.to_s})
-			  
-			  end
+		end
 
-		@sighting_rest = @sightings.where(id: (1..(Sighting.last.id-1)))
-		    @json2= @sighting_rest.to_gmaps4rails do |sighting, marker|
+		@sighting_second = Sighting.find(2)
 
-			  marker.picture({
-			                  :picture => "http://www.google.com/intl/en_us/mapfiles/ms/micons/blue-dot.png",
-			                  :width   => 32,
-			                  :height  => 32
-			                 })
-			
-			  marker.infowindow render_to_string(:partial => "/sightings/infowindow", :locals => { :sighting => sighting})
-			  marker.json({:when => sighting.sighted_at.to_s})
-		  
-			  end
+		if @sighting_second.present?
+			@sighting_rest = @sightings.where(id: (1..(Sighting.last.id-1))) 
+			# @sighting_rest = @sightings.first
+
+				    @json2= @sighting_rest.to_gmaps4rails do |sighting, marker|
+
+					  marker.picture({
+					                  :picture => "http://www.google.com/intl/en_us/mapfiles/ms/micons/blue-dot.png",
+					                  :width   => 32,
+					                  :height  => 32
+					                 })
+					
+					  marker.infowindow render_to_string(:partial => "/sightings/infowindow", :locals => { :sighting => sighting})
+					  marker.json({:when => sighting.sighted_at.to_s})
+			end	  
+		end
 
 		    @json = (JSON.parse(@json1) + JSON.parse(@json2)).to_json
 
