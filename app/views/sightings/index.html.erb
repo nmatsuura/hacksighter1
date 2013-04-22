@@ -1,10 +1,31 @@
 <div class="container-fluid">
   
 <!--1st row-->
-  <div class="row-fluid">
-  	<div class="span12">
-	<!--Searching--> 
-		<form class="form-inline">
+  
+<!--End of 1st row-->
+
+<!--Start of 2nd row-->
+  	<!--Sidebar content, 2nd row-->
+  	<div class="row-fluid">
+    	<div class="span3">
+      
+      		<p></p>
+	      	<p><%= link_to "Report a sighting", new_sighting_path, class: "btn btn" %></p>		
+	      	<p><%= link_to "Add a new topic", new_topic_path, class: "btn btn" %></p>
+
+<!--Number of Sightings on Map (<%= @sightings.count %>)-->
+<!-- <h3>Current User: 
+	<#% if user_signed_in? %>
+		<%#= current_user.email %>
+	<%# else %>
+		No User signed in
+	<%# end %></h3>
+ -->
+
+<!--Searching--> 
+
+	<p>
+		<form class="form-horizontal">
 			<%= search_form_for @q do |f| %>
 				<%#= f.label :location_cont, "Search Location" %>
 				<%= f.text_field :location_cont, placeholder: "Location Keyword" %>
@@ -21,27 +42,10 @@
 				<% end %>
 			<% end %>
 		</form>
+	</p>
+	
 	<!--End of searching-->
-	</div>
-  </div>
-<!--End of 1st row-->
 
-<!--Start of 2nd row-->
-  	<!--Sidebar content, 2nd row-->
-  	<div class="row-fluid">
-    	<div class="span3">
-      
-	      	<p><%= link_to "Report a sighting", new_sighting_path, class: "btn btn" %></p>		
-	      	<p><%= link_to "Add a new topic", new_topic_path, class: "btn btn" %></p>
-
-<!--Number of Sightings on Map (<%= @sightings.count %>)-->
-<!-- <h3>Current User: 
-	<#% if user_signed_in? %>
-		<%#= current_user.email %>
-	<%# else %>
-		No User signed in
-	<%# end %></h3>
- -->
 
 <!-- BELOW SECTION:  Ryan showed me way to make dropdown using css -->
 	<%#= form_tag sightings_path, method: :get do %>
@@ -79,7 +83,10 @@
   </ul>
 </div>
 
-<!--Can pick which topics to see on map-->
+<!--End picking which topics to see on map-->
+
+
+
 
 <!-- <p>
 <div class="dropdown">
@@ -113,14 +120,14 @@
 
 		<br />
 		<div id="days-slider" style="width: 600px"></div>
-		<input type="text" id="days-box" style="width: 100 px" />
+		<input type="text" id="days-box" style="width: 590px", class="text-center" />
 		<br />
 
 		</ul>
 		<script type="text/javascript">
 
                   function slider_display_string(from,to){
-                    return "filter: " + Math.ceil(from/24)+ " to " + Math.floor(to/24) + " days"
+                    return " From " + Math.ceil(from/24)+ " to " + Math.floor(to/24) + " days ago "
                   }
 
 		  now = new Date();
